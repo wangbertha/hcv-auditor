@@ -1,0 +1,23 @@
+.footer {
+    display: flex;
+    justify-content: center;
+    padding: 16px;
+    box-shadow: 0 -2px 1px -2px #000;
+}
+.footer-logo img{
+    max-height: 58px;
+}
+.footer-right{
+    display: flex;
+    flex-direction: column;
+}
+.footer-links{
+    display: flex;
+    list-style: none;
+    gap: 50px;
+    align-items: center;
+}
+.footer-right p{
+    font-size: 12px;
+    justify-content: right;
+}
