@@ -1,8 +1,8 @@
 .navbar{
     display: flex;
-    justify-content: space-around;
-    padding: 16px;
-    box-shadow: 0 1px 3px -2px #000;
+    justify-content: space-between;
+    padding: 16px 80px 16px;
+    border-bottom: 1px solid #d4d4d4;
     align-items: center;
 }
 .nav-logo{
@@ -12,10 +12,10 @@
     font-size: 20px;
 }
 .nav-logo img{
-    max-height: 58px;
+    max-height: 60px;
 }
 .nav-login button{
-    width: 157px;
+    width: 100px;
     height: 50px;
     outline: none;
     border: 1px solid #fefefe;

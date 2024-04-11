@@ -6,9 +6,13 @@ export const ListContext = createContext(null)
 
 const ListContextProvider = (props) => {
 
+  const [loading, setLoading] = useState(true)
   const [allListings, setAllListings] = useState([])
+  const [login, setLogin] = useState(false)
+  const [user, setUser] = useState('')
 
   useEffect(() => {
+    setLoading(true)
     const fetchData = async () => {
       const response = await fetch(Data)
       const reader = response.body.getReader()
@@ -22,14 +26,18 @@ const ListContextProvider = (props) => {
       setAllListings(parsedData)
     }
     fetchData()
+    setLoading(false)
   }, [])
 
-  const updateExclusionary = (id, newStatus) => {
-    console.log(newStatus)
-    // setAllListings(allListings.map(listing => listing.id === id ? (...listing, exclusionary: newStatus) : listing))
+  const updateField = (id, field, newStatus) => {
+    const tempListings = [...allListings]
+    const listing = tempListings.find((e) => Number(e.id) === Number(id))
+    listing[field] = newStatus
+    listing['reviewer'] = user
+    console.log(listing[field])
   }
 
-  const contextValue = {allListings, updateExclusionary}
+  const contextValue = {loading, allListings, login, setLogin, updateField, setUser, user}
 
   return (
     <ListContext.Provider value={contextValue}>

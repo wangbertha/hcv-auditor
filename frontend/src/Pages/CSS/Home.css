@@ -1,0 +1,13 @@
+.login-reminder{
+    margin: 20px;
+}
+th{
+    font-size: 20px;
+    font-weight: 600;
+    padding: 10px;
+}
+.table{
+    margin: 10px auto 10px;
+    gap: 5px;
+    border-spacing: 25px 0;
+}

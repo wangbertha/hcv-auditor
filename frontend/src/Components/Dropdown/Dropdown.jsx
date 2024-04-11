@@ -3,26 +3,27 @@ import './Dropdown.css'
 import { ListContext } from '../../Context/ListContext'
 
 export const Dropdown = (props) => {
-  const { allListings, updateExclusionary } = useContext(ListContext)
+  const { updateField } = useContext(ListContext)
     const [open, setOpen] = useState(false)
 
-    // Initialize the dropdown menu
-    if (props.field === "exclusionary") {
-      // console.log(allListings.find((e) => Number(e.id) === Number(props.id)))
-    }
-    const [display, setDisplay] = useState(props.options[0])
+    const [display, setDisplay] = useState(props.display)
 
     const toggleMenu = () => {
       setOpen(!open)
     }
 
-    const handleClick = (opt) => {
-      setDisplay(opt)
+    const handleClick = (selection) => {
+      setDisplay(selection)
       setOpen(false)
-      if (props.field==="exclusionary") {
-        updateExclusionary(props.id, opt)
-      }
+      updateField(props.id, props.field, selection)
     }
+
+    // useEffect(() => {
+    //   document.addEventListener("mousedown", handleOutsideClick)
+    //   return () => {
+    //     document.removeEventListener("mousedown", handleOutsideClick)
+    //   }
+    // })
 
   return (
     <div>
