@@ -1,21 +1,28 @@
-import React, { useContext, useState } from 'react'
+import React, { useState } from 'react'
 import './Dropdown.css'
-import { ListContext } from '../../Context/ListContext'
 
 export const Dropdown = (props) => {
-  const { updateField } = useContext(ListContext)
     const [open, setOpen] = useState(false)
-
     const [display, setDisplay] = useState(props.display)
 
     const toggleMenu = () => {
       setOpen(!open)
     }
 
-    const handleClick = (selection) => {
-      setDisplay(selection)
+    const handleClick = async (field, value) => {
       setOpen(false)
-      updateField(props.id, props.field, selection)
+      setDisplay(value)
+      try {
+        const body = { field, value }
+        await fetch(`http://localhost:4000/listing/${props.id}`,{
+          method: 'PUT',
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(body)
+        })
+      }
+      catch (err) {
+        console.error(err.message)
+      }
     }
 
     // useEffect(() => {
@@ -32,7 +39,7 @@ export const Dropdown = (props) => {
       </button>
       {open && <div className="options-menu">
         {props.options.map((opt, index) => (
-          <ul onClick={() => {handleClick(opt)}} key={index}>{opt}</ul>
+          <ul onClick={() => {handleClick(props.field, opt)}} key={index}>{opt}</ul>
         ))}
       </div>}
     </div>

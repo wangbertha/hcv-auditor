@@ -6,18 +6,18 @@ import Home from './Pages/Home'
 import Login from './Pages/Login'
 import Profile from './Pages/Profile'
 import Listing from './Pages/Listing'
-import { useContext } from 'react'
-import { ListContext } from './Context/ListContext'
-import Loading from './Pages/Loading'
 
 function App() {
-  const { loading } = useContext(ListContext)
   return (
     <div className='app'>
       <BrowserRouter>
         <Navbar />
-        {loading && <Loading/>}
-        {!loading && <Routes>
+        {!localStorage.getItem("auth-token")=='false' && <Routes>
+          <Route path='/' element={<Login/>}/>
+          <Route path='/home' element={<Login/>}/>
+          <Route path='/login' element={<Login/>}/>
+        </Routes>}
+        {localStorage.getItem("auth-token")=='true' && <Routes>
           <Route path='/' element={<Login/>}/>
           <Route path='/home' element={<Home/>}/>
           <Route path='/login' element={<Login/>}/>

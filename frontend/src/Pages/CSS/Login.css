@@ -45,3 +45,20 @@
     font-weight: 500;
     cursor: pointer;
 }
+
+.password {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.password input.checkbox {
+    width: 50px;
+    margin: 0px;
+    
+}
+
+.alert {
+    color: red;
+    font-size: 12px;
+}
