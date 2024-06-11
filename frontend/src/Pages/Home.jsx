@@ -6,7 +6,7 @@ const Home = () => {
   const [ allListings, setAllListings ] = useState([])
 
   useEffect(() => {
-    fetch('http://localhost:4000/get')
+    fetch(process.env.REACT_APP_API_ADDRESS+'/get')
     .then((response)=>response.json())
     .then((data)=>setAllListings(data))
   }, [])
@@ -26,7 +26,6 @@ const Home = () => {
               <th>Referred To</th>
               <th>Reviewer</th>
               <th>URL</th>
-              <th>Notes</th>
             </tr>
           </thead>
           <tbody>
@@ -39,7 +38,6 @@ const Home = () => {
                 <td>{row["actions_taken"]}</td>
                 <td>{row["referred_to"]}</td>
                 <td>{row["reviewer"]}</td>
-                <td>{row["notes"]}</td>
                 <td><a href={row.url} target="_blank">Link</a></td>
               </tr>
             ))}

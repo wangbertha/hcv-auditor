@@ -1,9 +1,11 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import './Dropdown.css'
+import ReactDOM from 'react-dom'
 
 export const Dropdown = (props) => {
     const [open, setOpen] = useState(false)
     const [display, setDisplay] = useState(props.display)
+    const ref = useRef(null)
 
     const toggleMenu = () => {
       setOpen(!open)
@@ -14,9 +16,9 @@ export const Dropdown = (props) => {
       setDisplay(value)
       try {
         const body = { field, value }
-        await fetch(`http://localhost:4000/listing/${props.id}`,{
+        await fetch(process.env.REACT_APP_API_ADDRESS+'/put/listing/'+props.id,{
           method: 'PUT',
-          headers: { "Content-Type": "application/json" },
+          headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(body)
         })
       }
@@ -25,12 +27,18 @@ export const Dropdown = (props) => {
       }
     }
 
-    // useEffect(() => {
-    //   document.addEventListener("mousedown", handleOutsideClick)
-    //   return () => {
-    //     document.removeEventListener("mousedown", handleOutsideClick)
-    //   }
-    // })
+    const handleOutsideClick = (e) => {
+      if (ref.current && !ref.current.contains(e.target)) {
+        setOpen(false)
+      }
+    }
+
+    useEffect(() => {
+      document.addEventListener('click', handleOutsideClick, true)
+      return () => {
+        document.removeEventListener('click', handleOutsideClick, true)
+      }
+    }, [])
 
   return (
     <div>

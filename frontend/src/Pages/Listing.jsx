@@ -1,7 +1,6 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { Dropdown } from '../Components/Dropdown/Dropdown'
-import { ListContext } from '../Context/ListContext'
 import "./CSS/Listing.css"
 
 const Listing = () => {
@@ -10,12 +9,10 @@ const Listing = () => {
   const [listing, setListing] = useState([])
 
   useEffect(() => {
-    fetch(`http://localhost:4000/get/listing/${id}`)
+    fetch(process.env.REACT_APP_API_ADDRESS+`/get/listing/${id}`)
     .then((response)=>response.json())
     .then((data)=>setListing(data))
   }, [])
-
-  const { reviewer } = useContext(ListContext)
 
   const optionsExclusionary = ['-Choose One-','Yes','No']
   const optionsAuditStatus = ['-Choose One-','Assigned','In Progress','Complete']
@@ -39,7 +36,7 @@ const Listing = () => {
   const handleChange = async (field, value) => {
     try {
       const body = { field, value }
-      await fetch(`http://localhost:4000/put/listing/${id}`,{
+      await fetch(process.env.REACT_APP_API_ADDRESS+`/put/listing/${id}`,{
         method: 'PUT',
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(body)
@@ -118,12 +115,9 @@ const Listing = () => {
               <button>Next</button>
           </div>
         </div>
-      ) : (<p>Loading...</p>)}
+      ) : (<p className='loading'>Loading...</p>)}
     </div>
   )
 }
 
 export default Listing
-
-// Number of pings? (Ex. Make a save button to "put" all at once, or ok to update in-sync?)
-// Store reviewer list somewhere?

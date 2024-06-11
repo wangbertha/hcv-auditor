@@ -99,6 +99,10 @@
     height: 50px;
 }
 
+.loading {
+    margin: 20px
+}
+
 @media(max-width:800px) {
     .listingdisplay {
         flex-direction: column;

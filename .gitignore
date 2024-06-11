@@ -12,6 +12,7 @@
 
 # production
 /build
+app.yaml
 
 # misc
 .DS_Store
@@ -19,14 +20,27 @@
 .env.local
 .env.development.local
 .env.test.local
+.env.production
 .env.production.local
 
+# debug and error logs
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-frontend/src/Components/Assets/hcv_match_202403111214.csv
 test_db.db
 
+# git bfg package
+.git.bfg-report/*
+bfg-1.14.0.jar
+
+# TO UPDATE REMOTE REPOSITORY
 # git add --all
 # git commit -m "message"
 # git push origin main
+
+# TO VIEW FILES ADDED
+# git status
+
+# TO REMOVE FILES FROM STAGING
+# git rm --cached "file" (one file)
+# git rm -r --cached "file/" (multiple files)
