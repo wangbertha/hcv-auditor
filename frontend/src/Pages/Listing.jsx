@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
-import { Dropdown } from '../Components/Dropdown/Dropdown'
 import "./CSS/Listing.css"
 
 const Listing = () => {
@@ -10,6 +9,12 @@ const Listing = () => {
   const [listing, setListing] = useState([])
   const [nextListing, setNextListing] = useState([])
   const [prevListing, setPrevListing] = useState([])
+  const [toggle, setToggle] = useState('')
+  const [dispExc, setDispExc] = useState('')
+  const [dispAct, setDispAct] = useState('')
+  const [dispRef, setDispRef] = useState('')
+  const [dispSta, setDispSta] = useState('')
+  const [dispRev, setDispRev] = useState('')
 
   // Gets information for all listings in the database that are not audited yet; Sorted by audit status, then by date pulled
   useEffect(() => {
@@ -26,8 +31,16 @@ const Listing = () => {
     const preListing = allListings[index-1]
     setNextListing(nexListing)
     setPrevListing(preListing)
-    console.log("ping!")
+    if (listing !== undefined) {
+      setDispExc(listing["exclusionary"])
+      setDispSta(listing["status"])
+      setDispAct(listing["actions_taken"])
+      setDispRef(listing["referred_to"])
+      setDispRev(listing["reviewer"])
+    }
+    console.log(dispExc)
   }, [allListings, id])
+
 
   // Define options for dropdown menus here
   const options = new Map([
@@ -46,7 +59,47 @@ const Listing = () => {
     // })
     return text
   } 
+
+  const toggleMenu = (field) => {
+    if (toggle===field) {
+      setToggle('')
+    }
+    else {
+      setToggle(field)
+    }
+  }
+
+  const handleClick = async (field, value) => {
+    try {
+      const body = { field, value }
+      await fetch(process.env.REACT_APP_API_ADDRESS+'/put/listing/'+id,{
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(body)
+      })
+    }
+    catch (err) {
+      console.error(err.message)
+    }
+    setToggle('')
+    if (field==="exclusionary") {
+      setDispExc(value)
+    }
+    else if (field==="actions_taken") {
+      setDispAct(value)
+    }
+    else if (field==="referred_to") {
+      setDispRef(value)
+    }
+    else if (field==="status") {
+      setDispSta(value)
+    }
+    else if (field==="reviewer") {
+      setDispRev(value)
+    }
+  }
   
+  // Updates database for text entered in the "Notes" field
   const handleChange = async (field, value) => {
     try {
       const body = { field, value }
@@ -78,46 +131,60 @@ const Listing = () => {
               <div className="listingdisplay-right-row">
                   <div className="dropdown-bundle">
                       <h5>Exclusionary</h5>
-                      <Dropdown 
-                        id={id} 
-                        field="exclusionary" 
-                        display={listing["exclusionary"]} 
-                        options={options.get("exclusionary")} />
+                      <button className='dropdown-btn' onClick={() => toggleMenu("exclusionary")}>
+                        {(typeof dispExc==='undefined') ? listing["exclusionary"] : dispExc}
+                      </button>
+                      {(toggle==="exclusionary") && <div className="options-menu">
+                        {options.get("exclusionary").map((opt, index) => (
+                          <ul onClick={() => {handleClick("exclusionary", opt)}} key={index}>{opt}</ul>
+                        ))}
+                      </div>}
                   </div>
                   <div className="dropdown-bundle">
                       <h5>Actions Taken</h5>
-                      <Dropdown 
-                        id={id} 
-                        field="actions_taken" 
-                        display={listing["actions_taken"]} 
-                        options={options.get("actions_taken")}/>
+                      <button className='dropdown-btn' onClick={() => toggleMenu("actions_taken")}>
+                        {(typeof dispAct==='undefined') ? listing["actions_taken"] : dispAct}
+                      </button>
+                      {(toggle==="actions_taken") && <div className="options-menu">
+                        {options.get("actions_taken").map((opt, index) => (
+                          <ul onClick={() => {handleClick("actions_taken", opt)}} key={index}>{opt}</ul>
+                        ))}
+                      </div>}
                   </div>
                   <div className="dropdown-bundle">
                       <h5>Referred To</h5>
-                      <Dropdown 
-                        id={id} 
-                        field="referred_to" 
-                        display={listing["referred_to"]} 
-                        options={options.get("referred_to")}/>
+                      <button className='dropdown-btn' onClick={() => toggleMenu("referred_to")}>
+                        {(typeof dispRef==='undefined') ? listing["referred_to"] : dispRef}
+                      </button>
+                      {(toggle==="referred_to") && <div className="options-menu">
+                        {options.get("referred_to").map((opt, index) => (
+                          <ul onClick={() => {handleClick("referred_to", opt)}} key={index}>{opt}</ul>
+                        ))}
+                      </div>}
                   </div>
               </div>
               <div className="listingdisplay-right-row">
                   <div className="dropdown-bundle">
                       <h5>Audit Status</h5>
-                      <Dropdown 
-                        id={id} 
-                        field="status" 
-                        display={listing["status"]} 
-                        options={options.get("status")}/>
+                      <button className='dropdown-btn' onClick={() => toggleMenu("status")}>
+                        {(typeof dispSta==='undefined') ? listing["status"] : dispSta}
+                      </button>
+                      {(toggle==="status") && <div className="options-menu">
+                        {options.get("status").map((opt, index) => (
+                          <ul onClick={() => {handleClick("status", opt)}} key={index}>{opt}</ul>
+                        ))}
+                      </div>}
                   </div>
-
                   <div className="dropdown-bundle">
                       <h5>Reviewer</h5>
-                      <Dropdown 
-                        id={id} 
-                        field="reviewer" 
-                        display={listing["reviewer"]} 
-                        options={options.get("reviewer")}/>
+                      <button className='dropdown-btn' onClick={() => toggleMenu("reviewer")}>
+                        {(typeof dispRev==='undefined') ? listing["reviewer"] : dispRev}
+                      </button>
+                      {(toggle==="reviewer") && <div className="options-menu">
+                        {options.get("reviewer").map((opt, index) => (
+                          <ul onClick={() => {handleClick("reviewer", opt)}} key={index}>{opt}</ul>
+                        ))}
+                      </div>}
                   </div>
               </div>
               <div className="notes-bundle">
