@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react'
 import './Dropdown.css'
-import ReactDOM from 'react-dom'
 
 export const Dropdown = (props) => {
     const [open, setOpen] = useState(false)

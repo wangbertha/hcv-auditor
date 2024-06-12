@@ -50,9 +50,9 @@
 }
 
 .external-link,
-.nextlisting {
+.traverse-btn button {
     height: 30px;
-    width: 400px;
+    width: 390px;
     max-width: 100%;
     margin: 5px 0px 20px;
     border-radius: 20px;
@@ -94,13 +94,9 @@
     height: 50px;
 }
 
-.nextlisting {
-    margin-top: 20px;
-    height: 50px;
-}
-
-.loading {
-    margin: 20px
+.traverse-btn button {
+    width: 190px;
+    margin: 10px 5px 10px;
 }
 
 @media(max-width:800px) {

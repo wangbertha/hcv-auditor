@@ -11,6 +11,7 @@
 /coverage
 
 # production
+/frontend/build
 /build
 app.yaml
 
