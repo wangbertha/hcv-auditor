@@ -38,7 +38,6 @@ const Listing = () => {
       setDispRef(listing["referred_to"])
       setDispRev(listing["reviewer"])
     }
-    console.log(dispExc)
   }, [allListings, id])
 
 
@@ -51,14 +50,22 @@ const Listing = () => {
     ["reviewer", ['-Choose One-','Reviewer #1', 'Reviewer #2']]
   ])
 
+  // Removes unnecessary text and highlights regex in the listing's description
   const formatBody = (text) => {
-    // const regex = ["Section 8","section 8","CHA"]
-    // let str = text.substring(26)
-    // regex.forEach(reg => {
-    //   str = str.replace(reg, `<span className='highlight'>${reg}</span>`)
-    // })
-    return text
-  } 
+    const regex = ["Section 8","section 8","CHA"]
+    var str = text.substring(26)
+    regex.forEach(reg => {
+      str = str.replace(reg, `<mark className='highlight'>${reg}</mark>`)
+    })
+    var listBody = document.getElementById("list-body")
+    var detail = document.createElement("p")
+    detail.classList.add("detail")
+    detail.innerHTML = str
+    if (listBody!=null) {
+      listBody.innerHTML = ""
+      listBody.appendChild(detail)
+    }
+  }
 
   const toggleMenu = (field) => {
     if (toggle===field) {
@@ -121,7 +128,7 @@ const Listing = () => {
           <div className="listingdisplay-left">
               <h2>{listing["title"]}</h2>
               <p id="listing-id">Listing ID: {listing["id"]}</p> 
-              <p>{formatBody(listing["body"])}</p>
+              {(typeof listing["body"]==='undefined') ? null : (<div id="list-body" className='body'>{formatBody(listing["body"])}</div>)}
           </div>
           <div className="listingdisplay-right">
               <h4>Instructions:</h4>
