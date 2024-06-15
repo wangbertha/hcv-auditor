@@ -51,20 +51,17 @@ const Listing = () => {
   ])
 
   // Removes unnecessary text and highlights regex in the listing's description
-  const formatBody = (text) => {
+  const formattedBody = (text) => {
     const regex = ["Section 8","section 8","CHA"]
     var str = text.substring(26)
     regex.forEach(reg => {
       str = str.replace(reg, `<mark className='highlight'>${reg}</mark>`)
     })
-    var listBody = document.getElementById("list-body")
-    var detail = document.createElement("p")
-    detail.classList.add("detail")
-    detail.innerHTML = str
-    if (listBody!=null) {
-      listBody.innerHTML = ""
-      listBody.appendChild(detail)
-    }
+    return React.createElement(
+      "p",
+      {className: 'list-body'},
+      str
+    )
   }
 
   const toggleMenu = (field) => {
@@ -128,13 +125,13 @@ const Listing = () => {
           <div className="listingdisplay-left">
               <h2>{listing["title"]}</h2>
               <p id="listing-id">Listing ID: {listing["id"]}</p> 
-              {(typeof listing["body"]==='undefined') ? null : (<div id="list-body" className='body'>{formatBody(listing["body"])}</div>)}
+              {(typeof listing["body"]==='undefined') ? null : (<div id="list-body">{formattedBody(listing["body"])}</div>)}
           </div>
           <div className="listingdisplay-right">
               <h4>Instructions:</h4>
-              <p>Enter results of the listing's audit using the dropdowns below. You may reference the original listing with the link below.</p>
-              <p>To select your next listing, navigate back to the homepage by clicking on the CAFHA icon on the top-left corner of the page.</p>
-              <button className="external-link" onClick={() => {window.open(listing["url"], '_blank')}}>Link</button>
+              <p>Enter results of the listing's audit using the dropdowns.</p>
+              <p>To select your next listing, use the navigation icons below, or navigate back to the homepage by clicking on the CAFHA icon on the top-left corner of the page.</p>
+              <button className="external-link" onClick={() => {window.open(listing["url"], '_blank')}}>Original Listing</button>
               <div className="listingdisplay-right-row">
                   <div className="dropdown-bundle">
                       <h5>Exclusionary</h5>
