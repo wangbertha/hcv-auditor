@@ -10,17 +10,23 @@ const Listing = () => {
   const [nextListing, setNextListing] = useState([])
   const [prevListing, setPrevListing] = useState([])
   const [toggle, setToggle] = useState('')
-  const [dispExc, setDispExc] = useState('')
-  const [dispAct, setDispAct] = useState('')
-  const [dispRef, setDispRef] = useState('')
-  const [dispSta, setDispSta] = useState('')
-  const [dispRev, setDispRev] = useState('')
+  const [dropDisplay, setDropDisplay] = useState({
+    exclusionary: "",
+    actions_taken: "",
+    referred_to: "",
+    status: "",
+    reviewer: "",
+  })
+  // 8:09 timestamp: Object state instead of multiple smaller ones
+  // 11:35 timestamp: Information can be derived from state/props
 
   // Gets information for all listings in the database that are not audited yet; Sorted by audit status, then by date pulled
   useEffect(() => {
     fetch(process.env.REACT_APP_API_ADDRESS+'/get')
     .then((response)=>response.json())
     .then((data)=>setAllListings(data))
+    console.log("AllListings loaded")
+    console.log(allListings)
 }, [id])
 
   // Gets the information for the listing that corresponds to the URL; Gets the information for the listing before and after as retrieved in "all listings"
@@ -32,12 +38,15 @@ const Listing = () => {
     setNextListing(nexListing)
     setPrevListing(preListing)
     if (listing !== undefined) {
-      setDispExc(listing["exclusionary"])
-      setDispSta(listing["status"])
-      setDispAct(listing["actions_taken"])
-      setDispRef(listing["referred_to"])
-      setDispRev(listing["reviewer"])
+      setDropDisplay({
+        exclusionary: listing["exclusionary"],
+        actions_taken: listing["actions_taken"],
+        referred_to: listing["referred_to"],
+        status: listing["status"],
+        reviewer: listing["reviewer"],
+      })
     }
+    console.log(dropDisplay)
   }, [allListings, id])
 
 
@@ -51,17 +60,13 @@ const Listing = () => {
   ])
 
   // Removes unnecessary text and highlights regex in the listing's description
-  const formattedBody = (text) => {
-    const regex = ["Section 8","section 8","CHA"]
+  const formatBody = (text) => {
+    const regex = ["Section 8","section 8","CHA "]
     var str = text.substring(26)
     regex.forEach(reg => {
       str = str.replace(reg, `<mark className='highlight'>${reg}</mark>`)
     })
-    return React.createElement(
-      "p",
-      {className: 'list-body'},
-      str
-    )
+    return str
   }
 
   const toggleMenu = (field) => {
@@ -85,22 +90,12 @@ const Listing = () => {
     catch (err) {
       console.error(err.message)
     }
+    setDropDisplay({
+      ...dropDisplay,
+      [field]: value
+    })
     setToggle('')
-    if (field==="exclusionary") {
-      setDispExc(value)
-    }
-    else if (field==="actions_taken") {
-      setDispAct(value)
-    }
-    else if (field==="referred_to") {
-      setDispRef(value)
-    }
-    else if (field==="status") {
-      setDispSta(value)
-    }
-    else if (field==="reviewer") {
-      setDispRev(value)
-    }
+    console.log(dropDisplay)
   }
   
   // Updates database for text entered in the "Notes" field
@@ -124,19 +119,20 @@ const Listing = () => {
         <div className='listingdisplay'>
           <div className="listingdisplay-left">
               <h2>{listing["title"]}</h2>
+              {(typeof listing["dateposted"]==='undefined') ? null : (<p id="listing-date">Posted: {listing["dateposted"].substring(0,11)}</p>)}
               <p id="listing-id">Listing ID: {listing["id"]}</p> 
-              {(typeof listing["body"]==='undefined') ? null : (<div id="list-body">{formattedBody(listing["body"])}</div>)}
+              {(typeof listing["body"]==='undefined') ? null : (<div dangerouslySetInnerHTML={{ __html: formatBody(listing["body"])}} />)}
           </div>
           <div className="listingdisplay-right">
               <h4>Instructions:</h4>
-              <p>Enter results of the listing's audit using the dropdowns.</p>
-              <p>To select your next listing, use the navigation icons below, or navigate back to the homepage by clicking on the CAFHA icon on the top-left corner of the page.</p>
-              <button className="external-link" onClick={() => {window.open(listing["url"], '_blank')}}>Original Listing</button>
+              <p>Enter results of the listing's audit using the dropdowns below. You may reference the original listing with the link below.</p>
+              <p>To select your next listing, navigate back to the homepage by clicking on the CAFHA icon on the top-left corner of the page.</p>
+              <button className="external-link" onClick={() => {window.open(listing["url"], '_blank')}}>Link</button>
               <div className="listingdisplay-right-row">
                   <div className="dropdown-bundle">
                       <h5>Exclusionary</h5>
                       <button className='dropdown-btn' onClick={() => toggleMenu("exclusionary")}>
-                        {(typeof dispExc==='undefined') ? listing["exclusionary"] : dispExc}
+                        {(typeof dropDisplay.exclusionary==='undefined') ? listing["exclusionary"] : dropDisplay.exclusionary}
                       </button>
                       {(toggle==="exclusionary") && <div className="options-menu">
                         {options.get("exclusionary").map((opt, index) => (
@@ -147,7 +143,7 @@ const Listing = () => {
                   <div className="dropdown-bundle">
                       <h5>Actions Taken</h5>
                       <button className='dropdown-btn' onClick={() => toggleMenu("actions_taken")}>
-                        {(typeof dispAct==='undefined') ? listing["actions_taken"] : dispAct}
+                        {(typeof dropDisplay.actions_taken==='undefined') ? listing["actions_taken"] : dropDisplay.actions_taken}
                       </button>
                       {(toggle==="actions_taken") && <div className="options-menu">
                         {options.get("actions_taken").map((opt, index) => (
@@ -158,7 +154,7 @@ const Listing = () => {
                   <div className="dropdown-bundle">
                       <h5>Referred To</h5>
                       <button className='dropdown-btn' onClick={() => toggleMenu("referred_to")}>
-                        {(typeof dispRef==='undefined') ? listing["referred_to"] : dispRef}
+                        {(typeof dropDisplay.referred_to==='undefined') ? listing["referred_to"] : dropDisplay.referred_to}
                       </button>
                       {(toggle==="referred_to") && <div className="options-menu">
                         {options.get("referred_to").map((opt, index) => (
@@ -171,7 +167,7 @@ const Listing = () => {
                   <div className="dropdown-bundle">
                       <h5>Audit Status</h5>
                       <button className='dropdown-btn' onClick={() => toggleMenu("status")}>
-                        {(typeof dispSta==='undefined') ? listing["status"] : dispSta}
+                        {(typeof dropDisplay.status==='undefined') ? listing["status"] : dropDisplay.status}
                       </button>
                       {(toggle==="status") && <div className="options-menu">
                         {options.get("status").map((opt, index) => (
@@ -182,7 +178,7 @@ const Listing = () => {
                   <div className="dropdown-bundle">
                       <h5>Reviewer</h5>
                       <button className='dropdown-btn' onClick={() => toggleMenu("reviewer")}>
-                        {(typeof dispRev==='undefined') ? listing["reviewer"] : dispRev}
+                        {(typeof dropDisplay.reviewer==='undefined') ? listing["reviewer"] : dropDisplay.reviewer}
                       </button>
                       {(toggle==="reviewer") && <div className="options-menu">
                         {options.get("reviewer").map((opt, index) => (

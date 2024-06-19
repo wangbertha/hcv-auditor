@@ -20,6 +20,10 @@
     margin: 0px;
 }
 
+#listing-date {
+    font-style: italic;
+}
+
 #listing-id {
     font-size: 10px;
     font-style: italic;

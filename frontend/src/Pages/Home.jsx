@@ -14,12 +14,13 @@ const Home = () => {
   
   return (
     <div>
-      {(typeof allListings === 'undefined') ? <p>Loading...</p> : (
+      {(allListings.length===0) ? (<p className='loading'>Loading...</p>) : (
         <table className='table'>
           <thead>
             <tr>
               <th>ID</th>
               <th>Audit Status</th>
+              <th>Date Posted</th>
               <th>Title</th>
               <th>Exclusionary</th>
               <th>Actions Taken</th>
@@ -33,6 +34,7 @@ const Home = () => {
               <tr key={index}>
                 <td><Link to={`/listing/${row.id}`}>{row.id}</Link></td>
                 <td>{row["status"]}</td>
+                <td>{row["dateposted"].substring(0,11)}</td>
                 <td>{row["title"]}</td>
                 <td>{row["exclusionary"]}</td>
                 <td>{row["actions_taken"]}</td>
