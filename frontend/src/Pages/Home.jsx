@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import './CSS/Home.css'
+import Loading from '../Components/Loading/Loading'
 
 const Home = () => {
   const [ allListings, setAllListings ] = useState([])
@@ -14,7 +15,7 @@ const Home = () => {
   
   return (
     <div>
-      {(allListings.length===0) ? (<p className='loading'>Loading...</p>) : (
+      {(allListings.length===0) ? (<Loading />) : (
         <table className='table'>
           <thead>
             <tr>

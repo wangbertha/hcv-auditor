@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import "./CSS/Listing.css"
+import Loading from '../Components/Loading/Loading'
 
 const Listing = () => {
   const urlId = useParams()
@@ -16,9 +17,8 @@ const Listing = () => {
     referred_to: "",
     status: "",
     reviewer: "",
+    notes: "",
   })
-  // 8:09 timestamp: Object state instead of multiple smaller ones
-  // 11:35 timestamp: Information can be derived from state/props
 
   // Gets information for all listings in the database that are not audited yet; Sorted by audit status, then by date pulled
   useEffect(() => {
@@ -44,6 +44,7 @@ const Listing = () => {
         referred_to: listing["referred_to"],
         status: listing["status"],
         reviewer: listing["reviewer"],
+        notes: listing["notes"]
       })
     }
     console.log(dropDisplay)
@@ -69,7 +70,7 @@ const Listing = () => {
     return str
   }
 
-  const toggleMenu = (field) => {
+  const toggleDropdown = (field) => {
     if (toggle===field) {
       setToggle('')
     }
@@ -78,7 +79,7 @@ const Listing = () => {
     }
   }
 
-  const handleClick = async (field, value) => {
+  const handleChange = async (field, value) => {
     try {
       const body = { field, value }
       await fetch(process.env.REACT_APP_API_ADDRESS+'/put/listing/'+id,{
@@ -98,24 +99,9 @@ const Listing = () => {
     console.log(dropDisplay)
   }
   
-  // Updates database for text entered in the "Notes" field
-  const handleChange = async (field, value) => {
-    try {
-      const body = { field, value }
-      await fetch(process.env.REACT_APP_API_ADDRESS+`/put/listing/${id}`,{
-        method: 'PUT',
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(body)
-      })
-    }
-    catch (err) {
-      console.error(err.message)
-    }
-  }
-  
   return (
     <div>
-      {(typeof listing === 'undefined') ? (<p className='loading'>Loading...</p>) : (
+      {(typeof listing === 'undefined') ? (<Loading />) : (
         <div className='listingdisplay'>
           <div className="listingdisplay-left">
               <h2>{listing["title"]}</h2>
@@ -131,34 +117,34 @@ const Listing = () => {
               <div className="listingdisplay-right-row">
                   <div className="dropdown-bundle">
                       <h5>Exclusionary</h5>
-                      <button className='dropdown-btn' onClick={() => toggleMenu("exclusionary")}>
-                        {(typeof dropDisplay.exclusionary==='undefined') ? listing["exclusionary"] : dropDisplay.exclusionary}
+                      <button className='dropdown-btn' onClick={() => toggleDropdown("exclusionary")}>
+                        {(typeof dropDisplay.exclusionary!=='undefined') ? (<div>{dropDisplay.exclusionary}{console.log("second")}</div>) : null}
                       </button>
                       {(toggle==="exclusionary") && <div className="options-menu">
                         {options.get("exclusionary").map((opt, index) => (
-                          <ul onClick={() => {handleClick("exclusionary", opt)}} key={index}>{opt}</ul>
+                          <ul onClick={() => {handleChange("exclusionary", opt)}} key={index}>{opt}</ul>
                         ))}
                       </div>}
                   </div>
                   <div className="dropdown-bundle">
                       <h5>Actions Taken</h5>
-                      <button className='dropdown-btn' onClick={() => toggleMenu("actions_taken")}>
-                        {(typeof dropDisplay.actions_taken==='undefined') ? listing["actions_taken"] : dropDisplay.actions_taken}
+                      <button className='dropdown-btn' onClick={() => toggleDropdown("actions_taken")}>
+                        {(typeof dropDisplay.actions_taken!=='undefined') ? dropDisplay.actions_taken : null}
                       </button>
                       {(toggle==="actions_taken") && <div className="options-menu">
                         {options.get("actions_taken").map((opt, index) => (
-                          <ul onClick={() => {handleClick("actions_taken", opt)}} key={index}>{opt}</ul>
+                          <ul onClick={() => {handleChange("actions_taken", opt)}} key={index}>{opt}</ul>
                         ))}
                       </div>}
                   </div>
                   <div className="dropdown-bundle">
                       <h5>Referred To</h5>
-                      <button className='dropdown-btn' onClick={() => toggleMenu("referred_to")}>
-                        {(typeof dropDisplay.referred_to==='undefined') ? listing["referred_to"] : dropDisplay.referred_to}
+                      <button className='dropdown-btn' onClick={() => toggleDropdown("referred_to")}>
+                        {(typeof dropDisplay.referred_to!=='undefined') ? dropDisplay.referred_to : null}
                       </button>
                       {(toggle==="referred_to") && <div className="options-menu">
                         {options.get("referred_to").map((opt, index) => (
-                          <ul onClick={() => {handleClick("referred_to", opt)}} key={index}>{opt}</ul>
+                          <ul onClick={() => {handleChange("referred_to", opt)}} key={index}>{opt}</ul>
                         ))}
                       </div>}
                   </div>
@@ -166,23 +152,23 @@ const Listing = () => {
               <div className="listingdisplay-right-row">
                   <div className="dropdown-bundle">
                       <h5>Audit Status</h5>
-                      <button className='dropdown-btn' onClick={() => toggleMenu("status")}>
-                        {(typeof dropDisplay.status==='undefined') ? listing["status"] : dropDisplay.status}
+                      <button className='dropdown-btn' onClick={() => toggleDropdown("status")}>
+                        {(typeof dropDisplay.status!=='undefined') ? dropDisplay.status : null}
                       </button>
                       {(toggle==="status") && <div className="options-menu">
                         {options.get("status").map((opt, index) => (
-                          <ul onClick={() => {handleClick("status", opt)}} key={index}>{opt}</ul>
+                          <ul onClick={() => {handleChange("status", opt)}} key={index}>{opt}</ul>
                         ))}
                       </div>}
                   </div>
                   <div className="dropdown-bundle">
                       <h5>Reviewer</h5>
-                      <button className='dropdown-btn' onClick={() => toggleMenu("reviewer")}>
-                        {(typeof dropDisplay.reviewer==='undefined') ? listing["reviewer"] : dropDisplay.reviewer}
+                      <button className='dropdown-btn' onClick={() => toggleDropdown("reviewer")}>
+                        {(typeof dropDisplay.reviewer!=='undefined') ? dropDisplay.reviewer : null}
                       </button>
                       {(toggle==="reviewer") && <div className="options-menu">
                         {options.get("reviewer").map((opt, index) => (
-                          <ul onClick={() => {handleClick("reviewer", opt)}} key={index}>{opt}</ul>
+                          <ul onClick={() => {handleChange("reviewer", opt)}} key={index}>{opt}</ul>
                         ))}
                       </div>}
                   </div>
