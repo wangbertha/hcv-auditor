@@ -25,9 +25,7 @@ const Listing = () => {
     fetch(process.env.REACT_APP_API_ADDRESS+'/get')
     .then((response)=>response.json())
     .then((data)=>setAllListings(data))
-    console.log("AllListings loaded")
-    console.log(allListings)
-}, [id])
+  }, [id])
 
   // Gets the information for the listing that corresponds to the URL; Gets the information for the listing before and after as retrieved in "all listings"
   useEffect(() => {
@@ -47,7 +45,6 @@ const Listing = () => {
         notes: listing["notes"]
       })
     }
-    console.log(dropDisplay)
   }, [allListings, id])
 
 
@@ -96,7 +93,6 @@ const Listing = () => {
       [field]: value
     })
     setToggle('')
-    console.log(dropDisplay)
   }
   
   return (
@@ -118,7 +114,7 @@ const Listing = () => {
                   <div className="dropdown-bundle">
                       <h5>Exclusionary</h5>
                       <button className='dropdown-btn' onClick={() => toggleDropdown("exclusionary")}>
-                        {(typeof dropDisplay.exclusionary!=='undefined') ? (<div>{dropDisplay.exclusionary}{console.log("second")}</div>) : null}
+                        {(dropDisplay.exclusionary) || null}
                       </button>
                       {(toggle==="exclusionary") && <div className="options-menu">
                         {options.get("exclusionary").map((opt, index) => (
@@ -129,7 +125,7 @@ const Listing = () => {
                   <div className="dropdown-bundle">
                       <h5>Actions Taken</h5>
                       <button className='dropdown-btn' onClick={() => toggleDropdown("actions_taken")}>
-                        {(typeof dropDisplay.actions_taken!=='undefined') ? dropDisplay.actions_taken : null}
+                        {dropDisplay.actions_taken || null}
                       </button>
                       {(toggle==="actions_taken") && <div className="options-menu">
                         {options.get("actions_taken").map((opt, index) => (
@@ -140,7 +136,7 @@ const Listing = () => {
                   <div className="dropdown-bundle">
                       <h5>Referred To</h5>
                       <button className='dropdown-btn' onClick={() => toggleDropdown("referred_to")}>
-                        {(typeof dropDisplay.referred_to!=='undefined') ? dropDisplay.referred_to : null}
+                        {dropDisplay.referred_to || null}
                       </button>
                       {(toggle==="referred_to") && <div className="options-menu">
                         {options.get("referred_to").map((opt, index) => (
@@ -153,7 +149,7 @@ const Listing = () => {
                   <div className="dropdown-bundle">
                       <h5>Audit Status</h5>
                       <button className='dropdown-btn' onClick={() => toggleDropdown("status")}>
-                        {(typeof dropDisplay.status!=='undefined') ? dropDisplay.status : null}
+                        {dropDisplay.status || null}
                       </button>
                       {(toggle==="status") && <div className="options-menu">
                         {options.get("status").map((opt, index) => (
@@ -164,7 +160,7 @@ const Listing = () => {
                   <div className="dropdown-bundle">
                       <h5>Reviewer</h5>
                       <button className='dropdown-btn' onClick={() => toggleDropdown("reviewer")}>
-                        {(typeof dropDisplay.reviewer!=='undefined') ? dropDisplay.reviewer : null}
+                        {dropDisplay.reviewer || null}
                       </button>
                       {(toggle==="reviewer") && <div className="options-menu">
                         {options.get("reviewer").map((opt, index) => (
@@ -176,8 +172,11 @@ const Listing = () => {
               <div className="notes-bundle">
                   <h5>Notes:</h5>
                   <textarea 
+                    key={id}
                     type="text" 
-                    onChange={(e) => handleChange("notes", e.target.value)}/>
+                    onChange={(e) => handleChange("notes", e.target.value)}
+                    onClick={() => setToggle('')}
+                    value={dropDisplay.notes || ""} />
               </div>
               <div className="traverse-btn">
                 {(typeof prevListing === 'undefined') ? null : <Link to={`/listing/${prevListing["id"]}`}><button>Prev {prevListing["id"]}</button></Link>}
