@@ -5,6 +5,7 @@ import Loading from '../Components/Loading/Loading'
 
 const Home = () => {
   const [ allListings, setAllListings ] = useState([])
+  const blank = ""
 
   useEffect(() => {
     fetch(process.env.REACT_APP_API_ADDRESS+'/get')
@@ -34,13 +35,13 @@ const Home = () => {
             {allListings.map((row, index) => (
               <tr key={index}>
                 <td><Link to={`/listing/${row.id}`}>{row.id}</Link></td>
-                <td>{row["status"]}</td>
+                {(row["status"]===blank) ? <td>---</td> : <td>{row["status"]}</td>}
                 <td>{row["dateposted"].substring(0,11)}</td>
                 <td>{row["title"]}</td>
-                <td>{row["exclusionary"]}</td>
-                <td>{row["actions_taken"]}</td>
-                <td>{row["referred_to"]}</td>
-                <td>{row["reviewer"]}</td>
+                {(row["exclusionary"]===blank) ? <td>---</td>: <td>{row["exclusionary"]}</td>}
+                {(row["actions_taken"]===blank) ? <td>---</td>: <td>{row["actions_taken"]}</td>}
+                {(row["referred_to"]===blank) ? <td>---</td>: <td>{row["referred_to"]}</td>}
+                {(row["reviewer"]===blank) ? <td>---</td>: <td>{row["reviewer"]}</td>}
                 <td><a href={row.url} target="_blank">Link</a></td>
               </tr>
             ))}

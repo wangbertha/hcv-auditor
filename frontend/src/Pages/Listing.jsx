@@ -6,6 +6,7 @@ import Loading from '../Components/Loading/Loading'
 const Listing = () => {
   const urlId = useParams()
   const id = urlId["listingId"]
+  const blankDisplay = "-Choose One-"
   const [allListings, setAllListings] = useState([])
   const [listing, setListing] = useState([])
   const [nextListing, setNextListing] = useState([])
@@ -37,11 +38,11 @@ const Listing = () => {
     setPrevListing(preListing)
     if (listing !== undefined) {
       setDropDisplay({
-        exclusionary: listing["exclusionary"],
-        actions_taken: listing["actions_taken"],
-        referred_to: listing["referred_to"],
-        status: listing["status"],
-        reviewer: listing["reviewer"],
+        exclusionary: (listing["exclusionary"] ? listing["exclusionary"] : blankDisplay),
+        actions_taken: (listing["actions_taken"] ? listing["actions_taken"] : blankDisplay),
+        referred_to: (listing["referred_to"] ? listing["referred_to"] : blankDisplay),
+        status: (listing["status"] ? listing["status"] : blankDisplay),
+        reviewer: (listing["reviewer"] ? listing["reviewer"] : blankDisplay),
         notes: listing["notes"]
       })
     }
@@ -50,11 +51,11 @@ const Listing = () => {
 
   // Define options for dropdown menus here
   const options = new Map([
-    ["exclusionary", ['-Choose One-','Yes','No']],
-    ["status", ['-Choose One-','Assigned','In Progress','Complete']],
-    ["actions_taken", ['-Choose One-','Email Sent','Referral Sent','No Action Required','Other (See Notes)']],
-    ["referred_to", ['-Choose One-','Option 1','Other','Not Applicable']],
-    ["reviewer", ['-Choose One-','Reviewer #1', 'Reviewer #2']]
+    ["exclusionary", [blankDisplay,'Yes','No']],
+    ["status", [blankDisplay,'Assigned','In Progress','Complete']],
+    ["actions_taken", [blankDisplay,'Email Sent','Referral Sent','No Action Required','Other (See Notes)']],
+    ["referred_to", [blankDisplay,'Option 1','Other','Not Applicable']],
+    ["reviewer", [blankDisplay,'Reviewer #1', 'Reviewer #2']]
   ])
 
   // Removes unnecessary text and highlights regex in the listing's description
@@ -77,6 +78,13 @@ const Listing = () => {
   }
 
   const handleChange = async (field, value) => {
+    setDropDisplay({
+      ...dropDisplay,
+      [field]: value
+    })
+    if (value==="-Choose One-") {
+      value = ""
+    }
     try {
       const body = { field, value }
       await fetch(process.env.REACT_APP_API_ADDRESS+'/put/listing/'+id,{
@@ -88,10 +96,6 @@ const Listing = () => {
     catch (err) {
       console.error(err.message)
     }
-    setDropDisplay({
-      ...dropDisplay,
-      [field]: value
-    })
     setToggle('')
   }
   
