@@ -11,3 +11,12 @@ th{
     gap: 5px;
     border-spacing: 25px 0;
 }
+
+@media(max-width:1000px) {
+    th {
+        font-size: 16px;
+    }
+    tr {
+        font-size: 14px;
+    }
+}
