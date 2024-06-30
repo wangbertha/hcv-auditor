@@ -5,7 +5,7 @@
 }
 .profile-left {
     background: #6acce5;
-    width: 30%;
+    min-width: 30%;
     min-height: 500px;
     padding: 20px;
 }
@@ -43,4 +43,13 @@
 }
 .profile-right h2{
     margin: 0;
+}
+
+@media(max-width:500px) {
+    .profile{
+        flex-direction: column;
+    }
+    .profile-left{
+        min-height: 100%;
+    }
 }
