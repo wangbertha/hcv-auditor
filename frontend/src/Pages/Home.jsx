@@ -8,6 +8,18 @@ const Home = () => {
   const blank = ""
   const blankDisplay = "---"
 
+  const columns = [
+    { label: "ID", field: "id" },
+    { label: "Audit Status", field: "status" },
+    { label: "Date Posted", field: "dateposted" },
+    { label: "Title", field: "title" },
+    { label: "Exclusionary", field: "exclusionary" },
+    { label: "Actions Taken", field: "actions_taken" },
+    { label: "Referred To", field: "referred_to" },
+    { label: "Reviewer", field: "reviewer" },
+    { label: "URL", field: "url" },
+  ]
+
   useEffect(() => {
     fetch(process.env.REACT_APP_API_ADDRESS+'/get')
     .then((response)=>response.json())
@@ -21,29 +33,28 @@ const Home = () => {
         <table className='table'>
           <thead>
             <tr>
-              <th>ID</th>
-              <th>Audit Status</th>
-              <th>Date Posted</th>
-              <th>Title</th>
-              <th>Exclusionary</th>
-              <th>Actions Taken</th>
-              <th>Referred To</th>
-              <th>Reviewer</th>
-              <th>URL</th>
+              {columns.map(({ label, field }) => {
+                return <th key={field}>{label}</th>
+              })}
             </tr>
           </thead>
           <tbody>
             {allListings.map((row, index) => (
               <tr key={index}>
-                <td><Link to={`/listing/${row.id}`}>{row.id}</Link></td>
-                {(row["status"]===blank) ? <td>{blankDisplay}</td> : <td>{row["status"]}</td>}
-                <td>{row["dateposted"].substring(0,11)}</td>
-                <td>{row["title"]}</td>
-                {(row["exclusionary"]===blank) ? <td>{blankDisplay}</td>: <td>{row["exclusionary"]}</td>}
-                {(row["actions_taken"]===blank) ? <td>{blankDisplay}</td>: <td>{row["actions_taken"]}</td>}
-                {(row["referred_to"]===blank) ? <td>{blankDisplay}</td>: <td>{row["referred_to"]}</td>}
-                {(row["reviewer"]===blank) ? <td>{blankDisplay}</td>: <td>{row["reviewer"]}</td>}
-                <td><a href={row.url} target="_blank">Link</a></td>
+                {columns.map(({ field }) => {
+                  if (field==="id") {
+                    return <td><Link to={`/listing/${row.id}`}>{row.id}</Link></td>
+                  }
+                  else if (field==="dateposted") {
+                    return <td>{row["dateposted"].substring(0,11)}</td>
+                  }
+                  else if (field==="url") {
+                    return <td><a href={row.url} target="_blank">Link</a></td>
+                  }
+                  else {
+                    return (row[field]===blank) ? <td key={field}>{blankDisplay}</td>: <td key={field}>{row[field]}</td>
+                  }
+                })}
               </tr>
             ))}
           </tbody>
