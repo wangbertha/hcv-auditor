@@ -5,6 +5,8 @@ import Loading from '../Components/Loading/Loading'
 
 const Home = () => {
   const [ allListings, setAllListings ] = useState([])
+  const [ sortField, setSortField ] = useState("")
+  const [ sortAsc, setSortAsc ] = useState(true)
   const blank = ""
   const blankDisplay = "---"
 
@@ -26,6 +28,24 @@ const Home = () => {
     .then((data)=>setAllListings(data))
   }, [])
 
+    const handleSort = (field) => {
+      if (field==="url") { return }
+      var sorted = []
+      if (sortField===field && sortAsc) {
+        setSortAsc(!sortAsc)
+        sorted = [...allListings].sort((a, b) => (
+          a[field] > b[field] ? -1 : 1
+        ))
+      }
+      else {
+        setSortField(field)
+        setSortAsc(true)
+        sorted = [...allListings].sort((a, b) => (
+          a[field] < b[field] ? -1 : 1
+        ))
+      }
+      setAllListings(sorted)
+    }
   
   return (
     <div>
@@ -34,7 +54,7 @@ const Home = () => {
           <thead>
             <tr>
               {columns.map(({ label, field }) => {
-                return <th key={field}>{label}</th>
+                return <th key={field} onClick={() => handleSort(field)}>{label}</th>
               })}
             </tr>
           </thead>
