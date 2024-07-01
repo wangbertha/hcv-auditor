@@ -6,10 +6,32 @@ th{
     font-weight: 600;
     padding: 10px;
 }
+th:hover {
+    cursor: pointer;
+}
+th.both {
+    background-image: url("../../Components/Assets/arrow-both.png");
+    background-size: 10px 25%;
+}
+th.up {
+    background-image: url("../../Components/Assets/arrow-up.png");
+    background-size: 5px 25%;
+}
+th.down {
+    background-image: url("../../Components/Assets/arrow-down.png");
+    background-size: 5px 25%;
+}
+th.both, th.up, th.down {
+    background-repeat: no-repeat;
+    background-position: center right;
+}
 .table{
     margin: 10px auto 10px;
     gap: 5px;
     border-spacing: 25px 0;
+}
+#url{
+    cursor: auto;
 }
 
 @media(max-width:1000px) {
