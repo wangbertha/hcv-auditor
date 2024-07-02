@@ -29,15 +29,17 @@ th.both, th.up, th.down {
     background-size: 10px 60%;
 }
 td {
-    height: 30px;
-    text-indent: 0.75em;
+    height: 20px;
 }
 .table{
     margin: 10px auto 10px;
-    border-spacing: 15px 0;
+    border-spacing: 15px 10px;
 }
 #url{
     cursor: auto;
+}
+#title{
+    max-width: 200px;
 }
 
 @media(max-width:1000px) {

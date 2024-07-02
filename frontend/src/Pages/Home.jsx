@@ -71,14 +71,11 @@ const Home = () => {
                   else if (field==="dateposted") {
                     return <td>{row["dateposted"].substring(0,11)}</td>
                   }
-                  else if (field==="title") {
-                    return <td>{row["title"].substring(0,30)}</td>
-                  }
                   else if (field==="url") {
                     return <td><a href={row.url} target="_blank" rel="noopener noreferrer">Link</a></td>
                   }
                   else {
-                    return (row[field]===blank) ? <td key={field}>{blankDisplay}</td>: <td key={field}>{row[field]}</td>
+                    return (row[field]===blank) ? <td id={field} key={field}>{blankDisplay}</td> : <td id={field} key={field}>{row[field]}</td>
                   }
                 })}
               </tr>
