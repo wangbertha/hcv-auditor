@@ -30,6 +30,8 @@ th.both, th.up, th.down {
 }
 td {
     height: 20px;
+    overflow: hidden;
+    white-space: nowrap;
 }
 .table{
     margin: 10px auto 10px;
