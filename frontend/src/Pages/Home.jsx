@@ -13,7 +13,7 @@ const Home = () => {
   const columns = [
     { label: "ID", field: "id" },
     { label: "Audit Status", field: "status" },
-    { label: "Date Posted", field: "dateposted" },
+    { label: "Posted", field: "dateposted" },
     { label: "Title", field: "title" },
     { label: "Exclusionary", field: "exclusionary" },
     { label: "Actions Taken", field: "actions_taken" },
@@ -57,7 +57,7 @@ const Home = () => {
                 const arrows = field==="url" ? "none" : sortField===field && sortAsc ? "down"
                   : sortField===field && !sortAsc ? "up"
                   : "both"
-                return <th className={arrows} id={field} key={field} onClick={() => handleSort(field)}>{label}</th>
+                return <th className={arrows} id={field} key={field} onClick={() => handleSort(field)}>{' '}{label}</th>
               })}
             </tr>
           </thead>
@@ -70,6 +70,9 @@ const Home = () => {
                   }
                   else if (field==="dateposted") {
                     return <td>{row["dateposted"].substring(0,11)}</td>
+                  }
+                  else if (field==="title") {
+                    return <td>{row["title"].substring(0,30)}</td>
                   }
                   else if (field==="url") {
                     return <td><a href={row.url} target="_blank" rel="noopener noreferrer">Link</a></td>
