@@ -1,12 +1,11 @@
 .welcome-container {
-    background: white;
     margin: auto;
     padding: 40px 60px;
     gap: 20px;
+    display: flex;
+    flex-direction: column;
+    align-content: center;
     max-width: 400px;
-}
-.welcome-container h1 {
-    margin: 0;
     text-align: center;
 }
 .welcome-container button {
@@ -14,7 +13,6 @@
     height: 72px;
     color: white;
     background: #43adc7;
-    margin-top: 30px;
     border: none;
     font-size: 24px;
     font-weight: 500;

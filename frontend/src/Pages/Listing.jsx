@@ -148,8 +148,6 @@ const Listing = () => {
                         ))}
                       </div>}
                   </div>
-              </div>
-              <div className="listingdisplay-right-row">
                   <div className="dropdown-bundle">
                       <h5>Audit Status</h5>
                       <button className='dropdown-btn' onClick={() => toggleDropdown("status")}>
@@ -173,14 +171,16 @@ const Listing = () => {
                       </div>}
                   </div>
               </div>
-              <div className="notes-bundle">
-                  <h5>Notes:</h5>
-                  <textarea 
-                    key={id}
-                    type="text" 
-                    onChange={(e) => handleChange("notes", e.target.value)}
-                    onClick={() => setToggle('')}
-                    value={dropDisplay.notes || ""} />
+              <div className="listingdisplay-right-row">
+                <div className="dropdown-bundle">
+                    <h5>Notes:</h5>
+                    <textarea 
+                      key={id}
+                      type="text" 
+                      onChange={(e) => handleChange("notes", e.target.value)}
+                      onClick={() => setToggle('')}
+                      value={dropDisplay.notes || ""} />
+                </div>
               </div>
               <div className="traverse-btn">
                 {(typeof prevListing === 'undefined') ? null : <Link to={`/listing/${prevListing["id"]}`}><button>Prev {prevListing["id"]}</button></Link>}

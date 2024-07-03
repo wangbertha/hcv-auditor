@@ -6,8 +6,8 @@ const Login = () => {
   return (
     <div className='welcome-container'>
       <h1>Welcome!</h1>
-      <Link to='/home'><button>Home</button></Link>
-      <Link to='/profile'><button>Profile</button></Link>
+      <Link to='/home'><button className='welcome-container-btn'>Home</button></Link>
+      <Link to='/profile'><button className='welcome-container-btn'>Profile</button></Link>
     </div>
   )
 }

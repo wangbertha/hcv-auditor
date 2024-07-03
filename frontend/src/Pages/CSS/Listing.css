@@ -1,39 +1,29 @@
 .listingdisplay {
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
     justify-content: center;
 }
-
+.listingdisplay * {
+    margin: 0;
+}
 .listingdisplay-left {
+    flex-basis: 400px;
     display: flex;
-    max-width: 400px;
     flex-direction: column;
     padding: 30px;
+    gap: 5px;
 }
-
-.listingdisplay-left h2 {
-    margin-top: 0;
-    margin-bottom: 5px;
-}
-
-.listingdisplay-left p {
-    margin: 0px;
-}
-
-#listing-date {
+#listing-date, #listing-id {
     font-style: italic;
 }
-
 #listing-id {
     font-size: 10px;
-    font-style: italic;
     margin-bottom: 15px;
 }
-
 .highlight {
     background-color: yellow;
 }
-
 .listingdisplay-right {
     display: flex;
     flex-direction: column;
@@ -42,23 +32,15 @@
     align-items: center;
     background: #e1e1e1;
     padding: 30px;
+    gap: 10px;
 }
-
-.listingdisplay-right h5 {
-    margin-top: 0;
-    margin-bottom: 5px;
+.listingdisplay-right h4 {
+    margin-top: 10px;
 }
-
-.listingdisplay-right p {
-    margin: 5px 0;
-}
-
 .external-link,
 .traverse-btn button {
     height: 30px;
-    width: 390px;
-    max-width: 100%;
-    margin: 5px 0px 20px;
+    align-self: stretch;
     border-radius: 20px;
     border: none;
     color: #fff;
@@ -67,23 +49,23 @@
     background: #43adc7;
     cursor: pointer;
 }
-
+.dropdown-bundle h5 {
+    margin-bottom: 5px;
+}
 .external-link:active {
     background: #327f92;
 }
-
 .listingdisplay-right-row {
     display: flex;
     flex-direction: row;
-    gap: 25px;
-    margin-bottom: 10px;
+    flex-wrap: wrap;
+    gap: 10px 25px;
     width: 100%;
 }
-
 .dropdown-bundle {
-    width: 100%;
+    flex-grow: 1;
+    flex-basis: 110px;
 }
-
 .listingdisplay-right-row button {
     text-align: left;
     text-indent: 5px;
@@ -102,15 +84,13 @@ button.dropdown-btn {
     padding: 0px;
     cursor: pointer;
 }
-
 button.dropdown-btn:active {
     color: #222222;
     background-color: #c5c5c5;
 }
-
 .options-menu {
     position: absolute;
-    width: 160px;
+    width: 125px;
     margin: 0;
     padding: 10px;
     background: #fff;
@@ -120,42 +100,26 @@ button.dropdown-btn:active {
     font-size: 12px;
     font-weight: 500;
 }
-
 .options-menu ul {
     padding: 5px;
     cursor: pointer;
     width: 150px;
     transition: all 0.2s;
 }
-
 .options-menu ul:hover {
     background: #a7a7a7;
 }
-
-.notes-bundle {
-    width: 100%;
-}
-
-.notes-bundle textarea {
+.dropdown-bundle textarea {
     width: 98.5%;
     height: 50px;
 }
-
-.traverse-btn button {
-    width: 190px;
-    margin: 10px 5px 10px;
+.traverse-btn {
+    align-self: center;
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    width: 100%;
 }
-
-@media(max-width:800px) {
-    .listingdisplay {
-        flex-direction: column;
-    }
-
-    .listingdisplay-left {
-        margin: 0px auto 0px;
-    }
-
-    .listingdisplay-right {
-        margin: 0px auto 0px;
-    }
+.traverse-btn * {
+    width: 100%;
 }
