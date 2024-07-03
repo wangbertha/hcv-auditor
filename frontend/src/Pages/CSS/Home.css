@@ -39,6 +39,7 @@ td {
 }
 #url{
     cursor: auto;
+    text-indent: 0;
 }
 #title{
     max-width: 200px;
