@@ -8,4 +8,12 @@ The application was developed with React.js for the frontend and Node.js/Express
 
 The application is deployed on Google Cloud App Engine.
 
-## Instructions
+## Demos
+
+### Home Page
+
+![Animation of Home page features](./homepage-demo.gif)
+
+### Listing Page
+
+![Animation of Listing page features](./listingpage-demo.gif)
