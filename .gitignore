@@ -23,6 +23,7 @@ app.yaml
 .env.test.local
 .env.production
 .env.production.local
+.vscode/
 
 # debug and error logs
 npm-debug.log*

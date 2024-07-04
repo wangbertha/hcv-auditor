@@ -13,14 +13,16 @@ function App() {
     <div className='app'>
       <BrowserRouter>
         <Navbar />
-        <Routes>
-          <Route path='/' element={<Welcome/>}/>
-          <Route path='/home' element={<Home/>}/>
-          <Route path='/profile' element={<Profile/>}/>
-          <Route path='/listing' element={<Listing/>}>
-            <Route path=':listingId' element={<Listing/>}/>
-          </Route>
-        </Routes>
+        <div className='container'>
+          <Routes>
+            <Route path='/' element={<Welcome/>}/>
+            <Route path='/home' element={<Home/>}/>
+            <Route path='/profile' element={<Profile/>}/>
+            <Route path='/listing' element={<Listing/>}>
+              <Route path=':listingId' element={<Listing/>}/>
+            </Route>
+          </Routes>
+        </div>
         <Footer />
       </BrowserRouter>
     </div>
