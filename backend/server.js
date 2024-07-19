@@ -19,12 +19,8 @@ app.use(function(req, res, next) {
   next();
 })
 
-app.get('/', (req, res) => {
-    const name = process.env.NAME || 'World'
-    res.send(`Hello ${name}!`)
-})
-app.get('/get', db.getAllListings)
-app.get('/get/listing/:id', db.getListingById)
-app.put('/put/listing/:id', db.updateField)
+app.get('/api/listings', db.getAllListings)
+app.get('/api/listings/:id', db.getListingById)
+app.put('/api/listings/:id', db.updateField)
 
 app.listen(port, () => console.log(`Listening on port ${port}`));
