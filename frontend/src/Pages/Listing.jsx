@@ -63,7 +63,7 @@ const Listing = () => {
     const regex = ["Section 8","section 8","CHA "]
     var str = text.substring(26)
     regex.forEach(reg => {
-      str = str.replace(reg, `<mark className='highlight'>${reg}</mark>`)
+      str = str.replaceAll(reg, `<mark className='highlight'>${reg}</mark>`)
     })
     return str
   }
