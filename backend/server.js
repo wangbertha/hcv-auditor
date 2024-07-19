@@ -7,7 +7,7 @@ const port = process.env.PORT || 8080;
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors({
-    origin: ["localhost:3000", "https://hcv-auditor.uc.r.appspot.com/"],
+    origin: '*',
     credentials: true,
     optionsSuccessStatus: 200
 }))
