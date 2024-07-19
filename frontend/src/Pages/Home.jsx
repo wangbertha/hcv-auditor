@@ -66,13 +66,13 @@ const Home = () => {
               <tr key={index}>
                 {columns.map(({ field }) => {
                   if (field==="id") {
-                    return <td><Link to={`/listing/${row.id}`}>{row.id}</Link></td>
+                    return <td key={field}><Link to={`/listing/${row.id}`}>{row.id}</Link></td>
                   }
                   else if (field==="dateposted") {
-                    return <td>{row["dateposted"].substring(0,11)}</td>
+                    return <td key={field}>{row["dateposted"].substring(0,11)}</td>
                   }
                   else if (field==="url") {
-                    return <td><a href={row.url} target="_blank" rel="noopener noreferrer">Link</a></td>
+                    return <td key={field}><a href={row.url} target="_blank" rel="noopener noreferrer">Link</a></td>
                   }
                   else {
                     return (row[field]===blank) ? <td id={field} key={field}>{blankDisplay}</td> : <td id={field} key={field}>{row[field]}</td>
