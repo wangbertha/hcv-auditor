@@ -57,7 +57,7 @@ const Home = () => {
                 const arrows = field==="url" ? "none" : sortField===field && sortAsc ? "down"
                   : sortField===field && !sortAsc ? "up"
                   : "both"
-                return <th className={arrows} id={field} key={field} onClick={() => handleSort(field)}>{' '}{label}</th>
+                return <th className={arrows} id={field} key={field} onClick={() => handleSort(field)}>{label}</th>
               })}
             </tr>
           </thead>
