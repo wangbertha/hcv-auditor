@@ -46,7 +46,7 @@ const Listing = () => {
         notes: listing.notes,
       })
     }
-  }, [allListings, id])
+  }, [allListings, listing, id])
 
 
   // Define options for dropdown menus here
