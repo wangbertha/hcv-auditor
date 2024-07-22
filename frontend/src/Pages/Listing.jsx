@@ -50,13 +50,13 @@ const Listing = () => {
 
 
   // Define options for dropdown menus here
-  const options = new Map([
-    ["exclusionary", [blankDisplay,'Yes','No']],
-    ["status", [blankDisplay,'Assigned','In Progress','Complete']],
-    ["actions_taken", [blankDisplay,'Email Sent','Referral Sent','No Action Required','Other (See Notes)']],
-    ["referred_to", [blankDisplay,'Option 1','Other','Not Applicable']],
-    ["reviewer", [blankDisplay,'Reviewer #1', 'Reviewer #2']]
-  ])
+  const options = {
+    exclusionary: [blankDisplay, 'Yes', 'No'],
+    status: [blankDisplay, 'Assigned', 'In Progress', 'Complete'],
+    actions_taken: [blankDisplay, 'Email Sent','Referral Sent','No Action Required','Other (See Notes)'],
+    referred_to: [blankDisplay,'Option 1','Other','Not Applicable'],
+    reviewer: [blankDisplay,'Reviewer #1', 'Reviewer #2'],
+  }
 
   // Removes unnecessary text and highlights regex in the listing's description
   const formatBody = (text) => {
@@ -121,7 +121,7 @@ const Listing = () => {
                         {(dropDisplay.exclusionary) || null}
                       </button>
                       {(toggle==="exclusionary") && <div className="options-menu">
-                        {options.get("exclusionary").map((opt, index) => (
+                        {options.exclusionary.map((opt, index) => (
                           <ul onClick={() => {handleChange("exclusionary", opt)}} key={index}>{opt}</ul>
                         ))}
                       </div>}
@@ -132,7 +132,7 @@ const Listing = () => {
                         {dropDisplay.actions_taken || null}
                       </button>
                       {(toggle==="actions_taken") && <div className="options-menu">
-                        {options.get("actions_taken").map((opt, index) => (
+                        {options.actions_taken.map((opt, index) => (
                           <ul onClick={() => {handleChange("actions_taken", opt)}} key={index}>{opt}</ul>
                         ))}
                       </div>}
@@ -143,7 +143,7 @@ const Listing = () => {
                         {dropDisplay.referred_to || null}
                       </button>
                       {(toggle==="referred_to") && <div className="options-menu">
-                        {options.get("referred_to").map((opt, index) => (
+                        {options.referred_to.map((opt, index) => (
                           <ul onClick={() => {handleChange("referred_to", opt)}} key={index}>{opt}</ul>
                         ))}
                       </div>}
@@ -154,7 +154,7 @@ const Listing = () => {
                         {dropDisplay.status || null}
                       </button>
                       {(toggle==="status") && <div className="options-menu">
-                        {options.get("status").map((opt, index) => (
+                        {options.status.map((opt, index) => (
                           <ul onClick={() => {handleChange("status", opt)}} key={index}>{opt}</ul>
                         ))}
                       </div>}
@@ -165,7 +165,7 @@ const Listing = () => {
                         {dropDisplay.reviewer || null}
                       </button>
                       {(toggle==="reviewer") && <div className="options-menu">
-                        {options.get("reviewer").map((opt, index) => (
+                        {options.reviewer.map((opt, index) => (
                           <ul onClick={() => {handleChange("reviewer", opt)}} key={index}>{opt}</ul>
                         ))}
                       </div>}
