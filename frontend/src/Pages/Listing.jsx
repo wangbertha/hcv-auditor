@@ -5,7 +5,7 @@ import Loading from '../Components/Loading/Loading'
 
 const Listing = () => {
   const urlId = useParams()
-  const id = urlId["listingId"]
+  const id = urlId.listingId
   const blankDisplay = "-Choose One-"
   const [allListings, setAllListings] = useState([])
   const [listing, setListing] = useState([])
@@ -30,20 +30,20 @@ const Listing = () => {
 
   // Gets the information for the listing that corresponds to the URL; Gets the information for the listing before and after as retrieved in "all listings"
   useEffect(() => {
-    setListing(allListings.find((row) => row["id"] === id))
-    const index = allListings.findIndex((row) => row["id"] === id)
+    setListing(allListings.find((row) => row.id === id))
+    const index = allListings.findIndex((row) => row.id === id)
     const nexListing = allListings[index+1]
     const preListing = allListings[index-1]
     setNextListing(nexListing)
     setPrevListing(preListing)
     if (listing !== undefined) {
       setDropDisplay({
-        exclusionary: (listing["exclusionary"] ? listing["exclusionary"] : blankDisplay),
-        actions_taken: (listing["actions_taken"] ? listing["actions_taken"] : blankDisplay),
-        referred_to: (listing["referred_to"] ? listing["referred_to"] : blankDisplay),
-        status: (listing["status"] ? listing["status"] : blankDisplay),
-        reviewer: (listing["reviewer"] ? listing["reviewer"] : blankDisplay),
-        notes: listing["notes"]
+        exclusionary: (listing.exclusionary ? listing.exclusionary : blankDisplay),
+        actions_taken: (listing.actions_taken ? listing.actions_taken : blankDisplay),
+        referred_to: (listing.referred_to ? listing.referred_to : blankDisplay),
+        status: (listing.status ? listing.status : blankDisplay),
+        reviewer: (listing.reviewer ? listing.reviewer : blankDisplay),
+        notes: listing.notes,
       })
     }
   }, [allListings, id])
@@ -104,16 +104,16 @@ const Listing = () => {
       {(typeof listing === 'undefined') ? (<Loading />) : (
         <div className='listingdisplay'>
           <div className="listingdisplay-left">
-              <h2>{listing["title"]}</h2>
-              {(typeof listing["dateposted"]==='undefined') ? null : (<p id="listing-date">Posted: {listing["dateposted"].substring(0,11)}</p>)}
-              <p id="listing-id">Listing ID: {listing["id"]}</p> 
-              {(typeof listing["body"]==='undefined') ? null : (<div dangerouslySetInnerHTML={{ __html: formatBody(listing["body"])}} />)}
+              <h2>{listing.title}</h2>
+              {(typeof listing.dateposted==='undefined') ? null : (<p id="listing-date">Posted: {listing.dateposted.substring(0,11)}</p>)}
+              <p id="listing-id">Listing ID: {listing.id}</p> 
+              {(typeof listing.body==='undefined') ? null : (<div dangerouslySetInnerHTML={{ __html: formatBody(listing.body)}} />)}
           </div>
           <div className="listingdisplay-right">
               <h4>Instructions:</h4>
               <p>Enter results of the listing's audit using the dropdowns below. You may reference the original listing with the link below.</p>
               <p>To select your next listing, use the navigation icons below or navigate back to the homepage by clicking on the CAFHA icon on the top-left corner of the page.</p>
-              <button className="external-link" onClick={() => {window.open(listing["url"], '_blank', 'noopener,noreferrer')}}>Link</button>
+              <button className="external-link" onClick={() => {window.open(listing.url, '_blank', 'noopener,noreferrer')}}>Link</button>
               <div className="listingdisplay-right-row">
                   <div className="dropdown-bundle">
                       <h5>Exclusionary</h5>
@@ -183,8 +183,8 @@ const Listing = () => {
                 </div>
               </div>
               <div className="traverse-btn">
-                {(typeof prevListing === 'undefined') ? null : <Link to={`/listing/${prevListing["id"]}`}><button>Prev {prevListing["id"]}</button></Link>}
-                {(typeof nextListing === 'undefined') ? null : <Link to={`/listing/${nextListing["id"]}`}><button>Next {nextListing["id"]}</button></Link>}
+                {(typeof prevListing === 'undefined') ? null : <Link to={`/listing/${prevListing.id}`}><button>Prev {prevListing.id}</button></Link>}
+                {(typeof nextListing === 'undefined') ? null : <Link to={`/listing/${nextListing.id}`}><button>Next {nextListing.id}</button></Link>}
               </div>
           </div>
         </div>

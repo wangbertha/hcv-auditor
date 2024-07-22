@@ -69,7 +69,7 @@ const Home = () => {
                     return <td key={field}><Link to={`/listing/${row.id}`}>{row.id}</Link></td>
                   }
                   else if (field==="dateposted") {
-                    return <td key={field}>{row["dateposted"].substring(0,11)}</td>
+                    return <td key={field}>{row.dateposted.substring(0,11)}</td>
                   }
                   else if (field==="url") {
                     return <td key={field}><a href={row.url} target="_blank" rel="noopener noreferrer">Link</a></td>
