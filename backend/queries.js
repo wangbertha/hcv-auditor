@@ -12,7 +12,7 @@ const pool = new Pool({
 })
 
 const getAllListings = (request, response) => {
-  pool.query("SELECT * FROM hcv_match2 WHERE status<>'Complete' ORDER BY status, dateupdated", (error, results) => {
+  pool.query("SELECT * FROM hcv_match WHERE status<>'Complete' ORDER BY status, dateupdated LIMIT 25", (error, results) => {
     if (error) {
       response.status(500).json(error)
     }
@@ -24,7 +24,7 @@ const getAllListings = (request, response) => {
 
 const getListingById = (request, response) => {
     const id = parseInt(request.params.id)
-  pool.query("SELECT * FROM hcv_match2 WHERE id = $1", [id], (error, results) => {
+  pool.query("SELECT * FROM hcv_match WHERE id = $1", [id], (error, results) => {
     if (error) {
       response.status(500).json(error)
     }
@@ -40,7 +40,7 @@ const updateField = (request, response) => {
 
     if (field == "exclusionary") {
         pool.query(
-            'UPDATE hcv_match2 SET exclusionary = $1 WHERE id = $2', [value, id],
+            'UPDATE hcv_match SET exclusionary = $1 WHERE id = $2', [value, id],
             (error, results) => {
                 if (error) {
                     throw error
@@ -51,7 +51,7 @@ const updateField = (request, response) => {
     }
     else if (field == "actions_taken") {
         pool.query(
-            'UPDATE hcv_match2 SET actions_taken = $1 WHERE id = $2', [value, id],
+            'UPDATE hcv_match SET actions_taken = $1 WHERE id = $2', [value, id],
             (error, results) => {
                 if (error) {
                     throw error
@@ -62,7 +62,7 @@ const updateField = (request, response) => {
     }
     else if (field == "referred_to") {
         pool.query(
-            'UPDATE hcv_match2 SET referred_to = $1 WHERE id = $2', [value, id],
+            'UPDATE hcv_match SET referred_to = $1 WHERE id = $2', [value, id],
             (error, results) => {
                 if (error) {
                     throw error
@@ -73,7 +73,7 @@ const updateField = (request, response) => {
     }
     else if (field == "status") {
         pool.query(
-            'UPDATE hcv_match2 SET status = $1 WHERE id = $2', [value, id],
+            'UPDATE hcv_match SET status = $1 WHERE id = $2', [value, id],
             (error, results) => {
                 if (error) {
                     throw error
@@ -84,7 +84,7 @@ const updateField = (request, response) => {
     }
     else if (field == "reviewer") {
         pool.query(
-            'UPDATE hcv_match2 SET reviewer = $1 WHERE id = $2', [value, id],
+            'UPDATE hcv_match SET reviewer = $1 WHERE id = $2', [value, id],
             (error, results) => {
                 if (error) {
                     throw error
@@ -95,7 +95,7 @@ const updateField = (request, response) => {
     }
     else if (field == "notes") { 
         pool.query(
-            'UPDATE hcv_match2 SET notes = $1 WHERE id = $2', [value, id],
+            'UPDATE hcv_match SET notes = $1 WHERE id = $2', [value, id],
             (error, results) => {
                 if (error) {
                     throw error
