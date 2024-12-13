@@ -1,7 +1,9 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
-import './CSS/Home.css'
+
 import Loading from '../Components/Loading/Loading'
+
+import './CSS/Home.css'
 
 const Home = () => {
   const [ allListings, setAllListings ] = useState([])
