@@ -23,7 +23,7 @@ const Listing = () => {
 
   // Gets information for all listings in the database that are not audited yet; Sorted by audit status, then by date pulled
   useEffect(() => {
-    fetch(process.env.REACT_APP_API_ADDRESS+'/api/listings')
+    fetch(import.meta.env.VITE_API_ADDRESS+'/api/listings')
     .then((response)=>response.json())
     .then((data)=>setAllListings(data))
   }, [id])
@@ -87,7 +87,7 @@ const Listing = () => {
     }
     try {
       const body = { field, value }
-      await fetch(process.env.REACT_APP_API_ADDRESS+'/api/listings/'+id,{
+      await fetch(import.meta.env.VITE_API_ADDRESS+'/api/listings/'+id,{
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(body)

@@ -23,7 +23,7 @@ const Home = () => {
   ]
 
   useEffect(() => {
-    fetch(process.env.REACT_APP_API_ADDRESS+'/api/listings')
+    fetch(import.meta.env.VITE_API_ADDRESS+'/api/listings')
     .then((response)=>response.json())
     .then((data)=>setAllListings(data))
   }, [])
