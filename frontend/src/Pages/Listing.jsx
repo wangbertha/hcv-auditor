@@ -113,7 +113,7 @@ const Listing = () => {
           </div>
           <div className="listingdisplay-right">
               <h4>Instructions:</h4>
-              <p>Enter results of the listing's audit using the dropdowns below. You may reference the original listing with the link below.</p>
+              <p>Enter results of the listing&apos;s audit using the dropdowns below. You may reference the original listing with the link below.</p>
               <p>To select your next listing, use the navigation icons below or navigate back to the homepage by clicking on the CAFHA icon on the top-left corner of the page.</p>
               <button className="external-link" onClick={() => {window.open(listing.url, '_blank', 'noopener,noreferrer')}}>Link</button>
               <div className="listingdisplay-right-row">
