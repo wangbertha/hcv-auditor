@@ -38,10 +38,13 @@ The application reads and writes to a database developed with the [HCV Monitor](
 *Instructions are not finalized as development and production modes are being refined
 
 1. Clone the repo
+
    ```sh
    git clone https://github.com/wangbertha/hcv-auditor.git
    ```
+
 2. Install NPM packages; the repo contains two separate projects, so you will need to `cd` into and install packages for each project.
+
    ```sh
    cd frontend
    npm install
@@ -85,8 +88,7 @@ Features:
 
 ## Pending Improvements
 
-- [ ] Migrate frontend build tool from Create React App (deprecated) to Vite
-- [ ] Transpile to TypeScript
-- [ ] Refactor Listing page into efficient components
-- [ ] Refactor dropdown menus into their own component
-- [ ] Sync highlighted keywords in Listing page to HCV Monitor project
+* [ ] Transpile to TypeScript
+* [ ] Refactor Listing page into efficient components
+* [ ] Refactor dropdown menus into their own component
+* [ ] Sync highlighted keywords in Listing page to [HCV Monitor](https://github.com/ikennedy240/hcv_monitor) project
