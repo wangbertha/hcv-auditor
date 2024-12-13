@@ -1,8 +1,9 @@
-import React from 'react'
-import './Navbar.css'
+import { Link } from 'react-router-dom'
+
 import homeicon from '../Assets/home-icon.png'
 import profileicon from '../Assets/profile-icon.png'
-import { Link } from 'react-router-dom'
+
+import './Navbar.css'
 
 export const Navbar = () => {
 

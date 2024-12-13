@@ -1,6 +1,6 @@
-import React from 'react'
-import './Footer.css'
 import homeicon from '../Assets/home-icon.png'
+
+import './Footer.css'
 
 export const Footer = () => {
 
