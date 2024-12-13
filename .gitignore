@@ -1,5 +1,3 @@
-# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
-
 # dependencies
 /backend/node_modules
 /frontend/node_modules
@@ -11,38 +9,33 @@
 /coverage
 
 # production
-/frontend/build
-/build
 app.yaml
+dist
+dist-ssr
+*.local
 
-# misc
-.DS_Store
+# env
 .env
 .env.local
 .env.development.local
 .env.test.local
 .env.production
 .env.production.local
-.vscode/
 
 # debug and error logs
+logs
+*.log
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 test_db.db
+pnpm-debug.log*
+lerna-debug.log*
 
 # git bfg package
 .git.bfg-report/*
 bfg-1.14.0.jar
 
-# TO UPDATE REMOTE REPOSITORY
-# git add --all
-# git commit -m "message"
-# git push origin main
-
-# TO VIEW FILES ADDED
-# git status
-
-# TO REMOVE FILES FROM STAGING
-# git rm --cached "file" (one file)
-# git rm -r --cached "file/" (multiple files)
+# misc
+.DS_Store
+.vscode/
