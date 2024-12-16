@@ -68,7 +68,7 @@ const Home = () => {
               <tr key={index}>
                 {columns.map(({ field }) => {
                   if (field==="id") {
-                    return <td key={field}><Link to={`/listing/${row.id}`}>{row.id}</Link></td>
+                    return <td key={field}><Link to={`/listings/${row.id}`}>{row.id}</Link></td>
                   }
                   else if (field==="dateposted") {
                     return <td key={field}>{row.dateposted.substring(0,11)}</td>
