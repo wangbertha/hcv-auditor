@@ -2,12 +2,12 @@
   <h1 align="center">HCV Auditor</h1>
   <div>
     <img
-      src="./frontend/src/Components/Assets/home-icon.png"
+      src="./frontend/src/assets/home-icon.png"
       alt="Project representative icon #1 (in lieu of logo)"
       width="200"
     />
     <img
-      src="./frontend/src/Components/Assets/profile-icon.png"
+      src="./frontend/src/assets/profile-icon.png"
       alt="Project representative icon #2 (in lieu of logo)"
       width="200"
     />
