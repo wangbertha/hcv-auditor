@@ -4,13 +4,6 @@
     height: 100%;
 }
 
-.container {
-    flex: 1 0 auto;
-    display: flex;
-    justify-content: center;
-    margin: 0 80px auto 80px;
-}
-
 @media(max-width: 1080px) {
     .container {
         justify-content: left;

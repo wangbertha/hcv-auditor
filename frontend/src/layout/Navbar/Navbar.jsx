@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom'
 
-import homeicon from '../Assets/home-icon.png'
-import profileicon from '../Assets/profile-icon.png'
+import homeicon from '../../assets/home-icon.png'
+import profileicon from '../../assets/profile-icon.png'
 
 import './Navbar.css'
 

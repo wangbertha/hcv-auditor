@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 
-import Loading from '../Components/Loading/Loading'
+import Loading from '../components/Loading/Loading'
 
-import "./CSS/Listing.css"
+import "./css/ListingById.css"
 
 const ListingById = () => {
   const { id } = useParams()

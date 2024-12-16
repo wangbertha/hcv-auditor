@@ -1,9 +1,9 @@
 import { createBrowserRouter } from "react-router-dom";
-import Root from "./layout/Root";
-import Welcome from "./Pages/Welcome";
-import Listings from "./Pages/Listings";
-import Profile from "./Pages/Profile";
-import ListingById from "./Pages/ListingById";
+import Root from "./layout/Root/Root";
+import Welcome from "./pages/Welcome";
+import Listings from "./pages/Listings";
+import Profile from "./pages/Profile";
+import ListingById from "./pages/ListingById";
 
 const router = createBrowserRouter([
     {
