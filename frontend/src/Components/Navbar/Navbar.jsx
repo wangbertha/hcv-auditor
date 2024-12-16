@@ -10,7 +10,7 @@ export const Navbar = () => {
   return (
     <div className='navbar'>
         <div className="nav-logo">
-            <Link to='/home'><img src={homeicon} alt="" /></Link>
+            <Link to='/'><img src={homeicon} alt="" /></Link>
             <p>HCV Auditor</p>
         </div>
         <div className="nav-profile">

@@ -5,7 +5,7 @@ import Loading from '../Components/Loading/Loading'
 
 import './CSS/Home.css'
 
-const Home = () => {
+const Listings = () => {
   const [ allListings, setAllListings ] = useState([])
   const [ sortField, setSortField ] = useState("")
   const [ sortAsc, setSortAsc ] = useState(true)
@@ -89,4 +89,4 @@ const Home = () => {
   )
 }
 
-export default Home
+export default Listings

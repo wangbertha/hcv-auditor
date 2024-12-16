@@ -5,7 +5,7 @@ import Loading from '../Components/Loading/Loading'
 
 import "./CSS/Listing.css"
 
-const Listing = () => {
+const ListingById = () => {
   const { id } = useParams()
   const blankDisplay = "-Choose One-"
   const [allListings, setAllListings] = useState([])
@@ -194,4 +194,4 @@ const Listing = () => {
   )
 }
 
-export default Listing
+export default ListingById
