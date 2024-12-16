@@ -1,4 +1,4 @@
-import homeicon from '../Assets/home-icon.png'
+import homeicon from '../../assets/home-icon.png'
 
 import './Footer.css'
 

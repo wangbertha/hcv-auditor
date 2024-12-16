@@ -1,13 +1,12 @@
 import { useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 
-import Loading from '../Components/Loading/Loading'
+import Loading from '../components/Loading/Loading'
 
-import "./CSS/Listing.css"
+import "./css/ListingById.css"
 
-const Listing = () => {
-  const urlId = useParams()
-  const id = urlId.listingId
+const ListingById = () => {
+  const { id } = useParams()
   const blankDisplay = "-Choose One-"
   const [allListings, setAllListings] = useState([])
   const [listing, setListing] = useState([])
@@ -195,4 +194,4 @@ const Listing = () => {
   )
 }
 
-export default Listing
+export default ListingById
