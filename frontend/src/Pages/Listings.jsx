@@ -1,12 +1,14 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { Link } from 'react-router-dom'
 
 import Loading from '../components/Loading/Loading'
 
 import './css/Listings.css'
+import { useGetListingsQuery } from '../services/listingsSlice'
 
 const Listings = () => {
-  const [ allListings, setAllListings ] = useState([])
+  const { data: allListings, isLoading, error } = useGetListingsQuery();
+  const [ sortedListings, setSortedListings ] = useState(undefined);
   const [ sortField, setSortField ] = useState("")
   const [ sortAsc, setSortAsc ] = useState(true)
   const blank = ""
@@ -24,12 +26,6 @@ const Listings = () => {
     { label: "URL", field: "url" },
   ]
 
-  useEffect(() => {
-    fetch(import.meta.env.VITE_API_ADDRESS+'/api/listings')
-    .then((response)=>response.json())
-    .then((data)=>setAllListings(data))
-  }, [])
-
     const handleSort = (field) => {
       if (field==="url") { return }
       var sorted = []
@@ -46,46 +42,51 @@ const Listings = () => {
           a[field] < b[field] ? -1 : 1
         ))
       }
-      setAllListings(sorted)
+      setSortedListings(sorted)
     }
+
+  if (isLoading) {
+    return <Loading />
+  }
+
+  if (error) {
+    return <p>Error retrieving listings.</p>
+  }
   
   return (
-    <div>
-      {(allListings.length===0) ? (<Loading />) : (
-        <table className='table'>
-          <thead>
-            <tr>
-              {columns.map(({ label, field }) => {
-                const arrows = field==="url" ? "none" : sortField===field && sortAsc ? "down"
-                  : sortField===field && !sortAsc ? "up"
-                  : "both"
-                return <th className={arrows} id={field} key={field} onClick={() => handleSort(field)}>{label}</th>
-              })}
-            </tr>
-          </thead>
-          <tbody>
-            {allListings.map((row, index) => (
-              <tr key={index}>
-                {columns.map(({ field }) => {
-                  if (field==="id") {
-                    return <td key={field}><Link to={`/listings/${row.id}`}>{row.id}</Link></td>
-                  }
-                  else if (field==="dateposted") {
-                    return <td key={field}>{row.dateposted.substring(0,11)}</td>
-                  }
-                  else if (field==="url") {
-                    return <td key={field}><a href={row.url} target="_blank" rel="noopener noreferrer">Link</a></td>
-                  }
-                  else {
-                    return (row[field]===blank) ? <td id={field} key={field}>{blankDisplay}</td> : <td id={field} key={field}>{row[field]}</td>
-                  }
-                })}
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      )}
-    </div>
+    <table className='table'>
+      <thead>
+        <tr>
+          {columns.map(({ label, field }) => {
+            const arrows = field==="url" ? "none" : sortField===field && sortAsc ? "down"
+              : sortField===field && !sortAsc ? "up"
+              : "both"
+            return <th className={arrows} id={field} key={field} onClick={() => handleSort(field)}>{label}</th>
+          })}
+        </tr>
+      </thead>
+      <tbody>
+        {/* If user indicates column-sorting, display sorted listings. Otherwise, list raw listings */}
+        {(sortedListings ? sortedListings : allListings).map((row, index) => (
+          <tr key={index}>
+            {columns.map(({ field }) => {
+              if (field==="id") {
+                return <td key={field}><Link to={`/listings/${row.id}`}>{row.id}</Link></td>
+              }
+              else if (field==="dateposted") {
+                return <td key={field}>{row.dateposted.substring(0,11)}</td>
+              }
+              else if (field==="url") {
+                return <td key={field}><a href={row.url} target="_blank" rel="noopener noreferrer">Link</a></td>
+              }
+              else {
+                return (row[field]===blank) ? <td id={field} key={field}>{blankDisplay}</td> : <td id={field} key={field}>{row[field]}</td>
+              }
+            })}
+          </tr>
+        ))}
+      </tbody>
+    </table>
   )
 }
 
