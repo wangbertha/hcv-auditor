@@ -48,15 +48,6 @@ const ListingById = () => {
     return str
   }
 
-  const toggleDropdown = (field) => {
-    if (toggle===field) {
-      setToggle('')
-    }
-    else {
-      setToggle(field)
-    }
-  }
-
   const handleChange = async (field, value) => {
     if (value==="-Choose One-") {
       value = ""
@@ -97,11 +88,11 @@ const ListingById = () => {
           <p>To select your next listing, use the navigation icons below or navigate back to the homepage by clicking on the CAFHA icon on the top-left corner of the page.</p>
           <button className="external-link" onClick={() => {window.open(listing.url, '_blank', 'noopener,noreferrer')}}>Link</button>
           <div className="listingdisplay-right-row">
-              <Dropdown title="Exclusionary" value={listing.exclusionary} field="exclusionary" options={options.exclusionary} toggle={toggle} toggleDropdown={toggleDropdown} handleChange={handleChange} />
-              <Dropdown title="Actions Taken" value={listing.actions_taken} field="actions_taken" options={options.actions_taken} toggle={toggle} toggleDropdown={toggleDropdown} handleChange={handleChange} />
-              <Dropdown title="Referred To" value={listing.referred_to} field="referred_to" options={options.referred_to} toggle={toggle} toggleDropdown={toggleDropdown} handleChange={handleChange} />
-              <Dropdown title="Audit Status" value={listing.status} field="status" options={options.status} toggle={toggle} toggleDropdown={toggleDropdown} handleChange={handleChange} />
-              <Dropdown title="Reviewer" value={listing.reviewer} field="reviewer" options={options.reviewer} toggle={toggle} toggleDropdown={toggleDropdown} handleChange={handleChange} />
+              <Dropdown title="Exclusionary" value={listing.exclusionary} field="exclusionary" options={options.exclusionary} toggle={toggle} setToggle={setToggle} handleChange={handleChange} />
+              <Dropdown title="Actions Taken" value={listing.actions_taken} field="actions_taken" options={options.actions_taken} toggle={toggle} setToggle={setToggle} handleChange={handleChange} />
+              <Dropdown title="Referred To" value={listing.referred_to} field="referred_to" options={options.referred_to} toggle={toggle} setToggle={setToggle} handleChange={handleChange} />
+              <Dropdown title="Audit Status" value={listing.status} field="status" options={options.status} toggle={toggle} setToggle={setToggle} handleChange={handleChange} />
+              <Dropdown title="Reviewer" value={listing.reviewer} field="reviewer" options={options.reviewer} toggle={toggle} setToggle={setToggle} handleChange={handleChange} />
           </div>
           <div className="listingdisplay-right-row">
             <div className="dropdown-bundle">
