@@ -6,6 +6,7 @@ import { useGetListingQuery, useGetListingsQuery, useUpdateListingMutation } fro
 import Loading from '../components/Loading/Loading'
 
 import "./css/ListingById.css"
+import Dropdown from '../components/Dropdown/Dropdown'
 
 const ListingById = () => {
   const { id } = useParams()
@@ -96,61 +97,11 @@ const ListingById = () => {
           <p>To select your next listing, use the navigation icons below or navigate back to the homepage by clicking on the CAFHA icon on the top-left corner of the page.</p>
           <button className="external-link" onClick={() => {window.open(listing.url, '_blank', 'noopener,noreferrer')}}>Link</button>
           <div className="listingdisplay-right-row">
-              <div className="dropdown-bundle">
-                  <h5>Exclusionary</h5>
-                  <button className='dropdown-btn' onClick={() => toggleDropdown("exclusionary")}>
-                    {(listing.exclusionary) || blankDisplay}
-                  </button>
-                  {(toggle==="exclusionary") && <div className="options-menu">
-                    {options.exclusionary.map((opt, index) => (
-                      <ul onClick={() => {handleChange("exclusionary", opt)}} key={index}>{opt}</ul>
-                    ))}
-                  </div>}
-              </div>
-              <div className="dropdown-bundle">
-                  <h5>Actions Taken</h5>
-                  <button className='dropdown-btn' onClick={() => toggleDropdown("actions_taken")}>
-                    {listing.actions_taken || blankDisplay}
-                  </button>
-                  {(toggle==="actions_taken") && <div className="options-menu">
-                    {options.actions_taken.map((opt, index) => (
-                      <ul onClick={() => {handleChange("actions_taken", opt)}} key={index}>{opt}</ul>
-                    ))}
-                  </div>}
-              </div>
-              <div className="dropdown-bundle">
-                  <h5>Referred To</h5>
-                  <button className='dropdown-btn' onClick={() => toggleDropdown("referred_to")}>
-                    {listing.referred_to || blankDisplay}
-                  </button>
-                  {(toggle==="referred_to") && <div className="options-menu">
-                    {options.referred_to.map((opt, index) => (
-                      <ul onClick={() => {handleChange("referred_to", opt)}} key={index}>{opt}</ul>
-                    ))}
-                  </div>}
-              </div>
-              <div className="dropdown-bundle">
-                  <h5>Audit Status</h5>
-                  <button className='dropdown-btn' onClick={() => toggleDropdown("status")}>
-                    {listing.status || blankDisplay}
-                  </button>
-                  {(toggle==="status") && <div className="options-menu">
-                    {options.status.map((opt, index) => (
-                      <ul onClick={() => {handleChange("status", opt)}} key={index}>{opt}</ul>
-                    ))}
-                  </div>}
-              </div>
-              <div className="dropdown-bundle">
-                  <h5>Reviewer</h5>
-                  <button className='dropdown-btn' onClick={() => toggleDropdown("reviewer")}>
-                    {listing.reviewer || blankDisplay}
-                  </button>
-                  {(toggle==="reviewer") && <div className="options-menu">
-                    {options.reviewer.map((opt, index) => (
-                      <ul onClick={() => {handleChange("reviewer", opt)}} key={index}>{opt}</ul>
-                    ))}
-                  </div>}
-              </div>
+              <Dropdown title="Exclusionary" value={listing.exclusionary} field="exclusionary" options={options.exclusionary} toggle={toggle} toggleDropdown={toggleDropdown} handleChange={handleChange} />
+              <Dropdown title="Actions Taken" value={listing.actions_taken} field="actions_taken" options={options.actions_taken} toggle={toggle} toggleDropdown={toggleDropdown} handleChange={handleChange} />
+              <Dropdown title="Referred To" value={listing.referred_to} field="referred_to" options={options.referred_to} toggle={toggle} toggleDropdown={toggleDropdown} handleChange={handleChange} />
+              <Dropdown title="Audit Status" value={listing.status} field="status" options={options.status} toggle={toggle} toggleDropdown={toggleDropdown} handleChange={handleChange} />
+              <Dropdown title="Reviewer" value={listing.reviewer} field="reviewer" options={options.reviewer} toggle={toggle} toggleDropdown={toggleDropdown} handleChange={handleChange} />
           </div>
           <div className="listingdisplay-right-row">
             <div className="dropdown-bundle">
