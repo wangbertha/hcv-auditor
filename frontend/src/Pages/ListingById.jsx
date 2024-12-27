@@ -14,8 +14,8 @@ const ListingById = () => {
   const { data: allListings, isLoading: isAllListingsLoading, error: allListingsError } = useGetListingsQuery();
   const { data: listing, isLoading: isListingLoading, error: listingError } = useGetListingQuery(id);
   const [updateListing] = useUpdateListingMutation();
-  const [nextListing, setNextListing] = useState([])
-  const [prevListing, setPrevListing] = useState([])
+  const [prevListingId, setPrevListingId] = useState(-1)
+  const [nextListingId, setNextListingId] = useState(-1)
   const [toggle, setToggle] = useState('')
   const [response, setResponse] = useState('')
 
@@ -23,10 +23,8 @@ const ListingById = () => {
   useEffect(() => {
     if (allListings !== undefined) {
       const index = allListings.findIndex((row) => row.id === id)
-      const nexListing = allListings[index+1]
-      const preListing = allListings[index-1]
-      setNextListing(nexListing)
-      setPrevListing(preListing)
+      allListings[index - 1] ? setPrevListingId(allListings[index - 1].id) : setPrevListingId(-1);
+      allListings[index + 1] ? setNextListingId(allListings[index + 1].id) : setNextListingId(-1);
     }
   }, [allListings, id])
 
@@ -108,8 +106,8 @@ const ListingById = () => {
           </div>
           <p className='response'>{response}</p>
           <div className="traverse-btn">
-            {(typeof prevListing === 'undefined') ? null : <Link to={`/listings/${prevListing.id}`}><button>Prev {prevListing.id}</button></Link>}
-            {(typeof nextListing === 'undefined') ? null : <Link to={`/listings/${nextListing.id}`}><button>Next {nextListing.id}</button></Link>}
+            {(prevListingId === -1) ? null : <Link to={`/listings/${prevListingId}`}><button>Prev {prevListingId}</button></Link>}
+            {(nextListingId === -1) ? null : <Link to={`/listings/${nextListingId}`}><button>Next {nextListingId}</button></Link>}
           </div>
       </div>
     </div>
