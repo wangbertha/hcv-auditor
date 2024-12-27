@@ -106,8 +106,8 @@ const ListingById = () => {
             </div>
           </div>
           <div className="traverse-btn">
-            {(typeof prevListing === 'undefined') ? null : <Link to={`/listing/${prevListing.id}`}><button>Prev {prevListing.id}</button></Link>}
-            {(typeof nextListing === 'undefined') ? null : <Link to={`/listing/${nextListing.id}`}><button>Next {nextListing.id}</button></Link>}
+            {(typeof prevListing === 'undefined') ? null : <Link to={`/listings/${prevListing.id}`}><button>Prev {prevListing.id}</button></Link>}
+            {(typeof nextListing === 'undefined') ? null : <Link to={`/listings/${nextListing.id}`}><button>Next {nextListing.id}</button></Link>}
           </div>
       </div>
     </div>
