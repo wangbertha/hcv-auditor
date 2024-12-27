@@ -106,8 +106,8 @@ const ListingById = () => {
           </div>
           <p className='response'>{response}</p>
           <div className="traverse-btn">
-            {(prevListingId === -1) ? null : <Link to={`/listings/${prevListingId}`}><button>Prev {prevListingId}</button></Link>}
-            {(nextListingId === -1) ? null : <Link to={`/listings/${nextListingId}`}><button>Next {nextListingId}</button></Link>}
+            {(prevListingId !== -1) && <Link to={`/listings/${prevListingId}`}><button>Prev {prevListingId}</button></Link>}
+            {(nextListingId !== -1) && <Link to={`/listings/${nextListingId}`}><button>Next {nextListingId}</button></Link>}
           </div>
       </div>
     </div>
