@@ -63,6 +63,12 @@
     text-align: left;
     text-indent: 5px;
 }
+.response {
+    font-size: 0.75rem;
+    font-style: italic;
+    color: #800000;
+    align-self: end;
+}
 .traverse-btn {
     align-self: center;
     display: flex;

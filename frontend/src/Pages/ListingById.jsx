@@ -17,6 +17,7 @@ const ListingById = () => {
   const [nextListing, setNextListing] = useState([])
   const [prevListing, setPrevListing] = useState([])
   const [toggle, setToggle] = useState('')
+  const [response, setResponse] = useState('')
 
   // Gets the information for the listing that corresponds to the URL; Gets the information for the listing before and after as retrieved in "all listings"
   useEffect(() => {
@@ -54,10 +55,10 @@ const ListingById = () => {
     }
     try {
       const response = await updateListing({ id, field, value });
-      if (!response.error) {
-        // Save success message
+      if (!response.error.message) {
+        setResponse(`${field} saved`);
       } else {
-        // Save unsuccessful message
+        setResponse(response.error.message);
       }
     }
     catch (err) {
@@ -105,6 +106,7 @@ const ListingById = () => {
                   value={listing.notes} />
             </div>
           </div>
+          <p className='response'>{response}</p>
           <div className="traverse-btn">
             {(typeof prevListing === 'undefined') ? null : <Link to={`/listings/${prevListing.id}`}><button>Prev {prevListing.id}</button></Link>}
             {(typeof nextListing === 'undefined') ? null : <Link to={`/listings/${nextListing.id}`}><button>Next {nextListing.id}</button></Link>}
