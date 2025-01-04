@@ -35,22 +35,55 @@ The application reads and writes to a database developed with the [HCV Monitor](
 
 ## Getting Started
 
-*Instructions are not finalized as development and production modes are being refined
+### Create a dummy database to read/write in development mode
 
-1. Clone the repo
+1. Download [PostgreSQL](https://www.postgresql.org/download/)
+
+2. Create a PostgreSQL database called hcv_auditor:\
+  CLI: `createdb hcv_auditor`
+
+3. Enter the psql command line:\
+    CLI: `psql hcv_auditor`
+
+    * You should now see `hcv_auditor=#` in your terminal
+
+4. Create a table in the database called hcv_match with the following columns:\
+    CLI: `CREATE TABLE hcv_match (id integer, url text, dateposted text, dateupdated text, title text, body text, status text, reviewer text, exclusionary text, actions_taken text, referred_to text, notes text);`
+
+5. Copy in data from dummy_data.txt:\
+    CLI: `\copy hcv_match from '[enter in the absolute path for dummy_data.txt]/dummy_data.txt' delimiter ',' CSV HEADER`
+
+* Note: To exit the psql command line, enter `\q`
+
+### Set up and run the application
+
+1. Clone the repo:
 
    ```sh
    git clone https://github.com/wangbertha/hcv-auditor.git
    ```
 
-2. Install NPM packages; the repo contains two separate projects, so you will need to `cd` into and install packages for each project.
+2. Edit `/backend/.env.example` according to the File Setup comments. This connects the backend to the PostgreSQL database.
+
+3. Open two new terminals - one to run the backend, and one to run the frontend.
+
+4. In the first terminal, install backend packages and run:
+
+   ```sh
+   cd backend
+   npm install
+   npm run dev
+   ```
+
+5. In the second terminal, install frontend packages and run:
 
    ```sh
    cd frontend
    npm install
-   cd ../backend
-   npm install
+   npm run dev
    ```
+
+6. Open `http://localhost:5173` to view the application.
 
 ## Previews
 
@@ -88,7 +121,8 @@ Features:
 
 ## Pending Improvements
 
+* [x] Finalize development and production modes
 * [ ] Transpile to TypeScript
 * [ ] Refactor Listing page into efficient components
-* [ ] Refactor dropdown menus into their own component
+* [x] Refactor dropdown menus into their own component
 * [ ] Sync highlighted keywords in Listing page to [HCV Monitor](https://github.com/ikennedy240/hcv_monitor) project
