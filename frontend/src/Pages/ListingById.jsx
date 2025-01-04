@@ -22,7 +22,7 @@ const ListingById = () => {
   // Gets the information for the listing that corresponds to the URL; Gets the information for the listing before and after as retrieved in "all listings"
   useEffect(() => {
     if (allListings !== undefined) {
-      const index = allListings.findIndex((row) => row.id === id)
+      const index = allListings.findIndex((row) => row.id === +id)
       allListings[index - 1] ? setPrevListingId(allListings[index - 1].id) : setPrevListingId(-1);
       allListings[index + 1] ? setNextListingId(allListings[index + 1].id) : setNextListingId(-1);
     }
@@ -98,10 +98,10 @@ const ListingById = () => {
                 <h5>Notes:</h5>
                 <textarea 
                   key={id}
-                  type="text" 
+                  type="text"
                   onChange={(e) => handleChange("notes", e.target.value)}
                   onClick={() => setToggle('')}
-                  value={listing.notes} />
+                  value={listing.notes || ""} />
             </div>
           </div>
           <p className='response'>{response}</p>
